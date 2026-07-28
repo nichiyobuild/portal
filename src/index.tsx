@@ -4,30 +4,27 @@ import { Contact } from "#/components/templates/contact";
 import { Home } from "#/components/templates/home";
 import { Privacy } from "#/components/templates/privacy";
 import { Terms } from "#/components/templates/terms";
-import { renderer } from "#/renderer";
 
 const app = new Hono();
 
-app.use(renderer);
-
 app.get("/", (c) => {
-	return c.render(<Home />);
+	return c.html(<Home />);
 });
 
 app.get("/about", (c) => {
-	return c.render(<About />);
+	return c.html(<About />);
 });
 
 app.get("/terms", (c) => {
-	return c.render(<Terms />);
+	return c.html(<Terms />);
 });
 
 app.get("/privacy", (c) => {
-	return c.render(<Privacy />);
+	return c.html(<Privacy />);
 });
 
 app.get("/contact", (c) => {
-	return c.render(<Contact />);
+	return c.html(<Contact />);
 });
 
 export default app;
