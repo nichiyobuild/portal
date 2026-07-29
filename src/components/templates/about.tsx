@@ -3,7 +3,7 @@ import { Layout } from "#/components/templates/layout";
 export function About() {
 	return (
 		<Layout title={["About"]}>
-			<article class="prose prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
+			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>
 					nichiyobuild.comは、ブラウザですぐに遊べるゲームを公開している個人運営のサイトです。
@@ -64,7 +64,10 @@ export function About() {
 					当サイトは、主に10代後半以上の方を対象としています。
 					13歳未満の方を主な対象としたコンテンツは提供していません。
 				</p>
-				<p>暴力的な表現や性的な表現を含むコンテンツは扱いません。</p>
+				<p>
+					暴力的な表現や性的な表現を含むコンテンツは扱いません。
+					ゲーム自体を楽しみたい方に加えて、個人開発やWeb技術に関心のある方にも読んでいただける情報を掲載しています。
+				</p>
 
 				<h2>更新方針</h2>
 				<p>
