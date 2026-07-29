@@ -4,17 +4,17 @@ import { Footer } from "#/components/ui/footer";
 import { Header } from "#/components/ui/header";
 
 type Props = {
-	title?: string;
+	title?: string[];
 	children: Child;
 };
 
-export function Layout({ title = "", children }: Props) {
+export function Layout({ title = [], children }: Props) {
 	return (
-		<html lang="en">
+		<html lang="ja">
 			<head>
 				<ViteClient />
 				<Link href="/src/style.css" rel="stylesheet" />
-				<title>{title === "" ? "" : `${title} | `}nichiyo build</title>
+				<title>{[...title, "nichiyo build"].join(" | ")}</title>
 			</head>
 			<body class="bg-slate-950 text-slate-50">
 				<div class="flex h-svh flex-col">
