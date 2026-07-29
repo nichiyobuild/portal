@@ -19,6 +19,11 @@
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
 	"files": {
 		"includes": ["**", "!worker-configuration.d.ts"]
 	}
