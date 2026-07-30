@@ -101,19 +101,6 @@ export function About() {
 					広告配信事業者によるCookieの使用などの詳細については
 					<a href="/privacy">プライバシーポリシー</a>をご覧ください。
 				</p>
-
-				<h2>関連ページ</h2>
-				<ul>
-					<li>
-						<a href="/terms">利用規約</a>
-					</li>
-					<li>
-						<a href="/privacy">プライバシーポリシー</a>
-					</li>
-					<li>
-						<a href="/contact">お問い合わせ</a>
-					</li>
-				</ul>
 			</article>
 		</Layout>
 	);
