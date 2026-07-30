@@ -4,17 +4,19 @@ import { Footer } from "#/components/ui/footer";
 import { Header } from "#/components/ui/header";
 
 type Props = {
-	title?: string[];
 	children: Child;
+	title?: string[];
+	noindex?: boolean;
 };
 
-export function Layout({ title = [], children }: Props) {
+export function Layout({ children, title = [], noindex = false }: Props) {
 	return (
 		<html lang="ja">
 			<head>
 				<ViteClient />
 				<Link href="/src/style.css" rel="stylesheet" />
 				<title>{[...title, "nichiyo build"].join(" | ")}</title>
+				{noindex && <meta name="robots" content="noindex, noarchive" />}
 			</head>
 			<body class="bg-slate-950 text-slate-50">
 				<div class="flex h-svh flex-col">
