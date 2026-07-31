@@ -6,7 +6,7 @@ import { Label } from "#/components/ui/label";
 
 export function Contact() {
 	return (
-		<Layout title={["お問い合わせ"]} noindex>
+		<Layout title={["お問い合わせ"]}>
 			<div class="py-8 lg:py-12">
 				<article class="prose prose-slate prose-invert prose-a:text-blue-300">
 					<h1>お問い合わせ</h1>
