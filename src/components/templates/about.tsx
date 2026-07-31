@@ -2,7 +2,7 @@ import { Layout } from "#/components/templates/layout";
 
 export function About() {
 	return (
-		<Layout title={["About"]}>
+		<Layout title={["このサイトについて"]}>
 			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>

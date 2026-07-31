@@ -16,7 +16,7 @@ export function Layout({ children, title = [], noindex = false }: Props) {
 				<ViteClient />
 				<meta content="width=device-width, initial-scale=1" name="viewport" />
 				<Link href="/src/style.css" rel="stylesheet" />
-				<title>{[...title, "nichiyo build"].join(" | ")}</title>
+				<title>{[...title, "日曜Build"].join(" | ")}</title>
 				{noindex && <meta name="robots" content="noindex, noarchive" />}
 			</head>
 			<body class="bg-slate-950 text-slate-50">

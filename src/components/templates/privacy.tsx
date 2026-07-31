@@ -2,7 +2,7 @@ import { Layout } from "#/components/templates/layout";
 
 export function Privacy() {
 	return (
-		<Layout title={["Privacy Policy"]}>
+		<Layout title={["プライバシーポリシー"]}>
 			<article class="prose prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
 				<p>
