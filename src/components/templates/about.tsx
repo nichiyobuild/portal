@@ -6,7 +6,7 @@ export function About() {
 			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>
-					nichiyobuild.comは、ブラウザですぐに遊べるゲームを公開している個人運営のサイトです。
+					nichiyobuild.comは、ブラウザですぐに遊べるゲームを公開しているサイトです。
 					アプリのインストールや専用の環境は必要ありません。
 				</p>
 
@@ -78,17 +78,22 @@ export function About() {
 
 				<h2>運営者情報</h2>
 				<p>
-					当サイトは、日曜Buildが個人で運営しています。
-					平日はソフトウェアエンジニアとして働きながら、週末や平日の仕事終わりの時間で開発しています。
+					「日曜Build」といいます。当サイトのゲームは、企画から実装まで一人で作っています。
+					平日はソフトウェアエンジニアとして働いていて、週末や仕事終わりの時間が開発の時間です。
 				</p>
 				<p>
 					開発の様子は
-					<a href="https://youtube.com/@nichiyobuild">YouTube</a>、
-					<a href="https://x.com/nichiyobuild">X</a>で発信しています。
+					<a href="https://youtube.com/@nichiyobuild">YouTube</a>と
+					<a href="https://x.com/nichiyobuild">X</a>
+					で発信しているので、よければのぞいてみてください。
 				</p>
 				<p>
-					サイトはTypeScript、Hono、Cloudflare
-					Workersで構築しています。ゲームごとに使用している技術は異なります。
+					このサイト自体はTypeScript、Hono、Cloudflare
+					Workersで作っています。ゲームごとに使っている技術は異なります。
+				</p>
+				<p>
+					運営事業者の情報は
+					<a href="/privacy">プライバシーポリシー</a>に記載しています。
 				</p>
 				<p>
 					ご意見・ご質問・不具合の報告などは
