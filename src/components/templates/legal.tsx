@@ -28,7 +28,7 @@ import { Layout } from "#/components/templates/layout";
 export function Legal() {
 	return (
 		<Layout title={["特定商取引法に基づく表記"]}>
-			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
+			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>特定商取引法に基づく表記</h1>
 				<p>
 					当社が提供する有料コンテンツの販売について、

@@ -3,7 +3,7 @@ import { Layout } from "#/components/templates/layout";
 export function About() {
 	return (
 		<Layout title={["このサイトについて"]}>
-			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
+			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>
 					nichiyobuild.comは、ブラウザですぐに遊べるゲームを公開しているサイトです。

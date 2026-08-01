@@ -3,7 +3,7 @@ import { Layout } from "#/components/templates/layout";
 export function Terms() {
 	return (
 		<Layout title={["利用規約"]}>
-			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
+			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>利用規約</h1>
 				<p>
 					この利用規約（以下「本規約」）は、Cloudensis合同会社（以下「当社」）が
