@@ -1,6 +1,6 @@
 import { Layout } from "#/components/pages/layout";
 import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
-import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
+import { COMPANY_ADDRESS, COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Privacy() {
 	return (
@@ -19,9 +19,7 @@ export function Privacy() {
 				<h2>事業者情報</h2>
 				<ul>
 					<li>事業者名: {COMPANY_NAME}</li>
-					<li>
-						所在地: 宮城県仙台市青葉区中央２丁目１１－１９ 仙南ビル４階－Ａ
-					</li>
+					<li>所在地: {COMPANY_ADDRESS}</li>
 					<li>
 						代表者の氏名:
 						<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>

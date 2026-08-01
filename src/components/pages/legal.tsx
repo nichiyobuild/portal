@@ -5,7 +5,11 @@ import {
 	PRIVACY_PAGE,
 	TERMS_PAGE,
 } from "#/constants/pages";
-import { COMPANY_NAME } from "#/constants/site";
+import {
+	COMPANY_ADDRESS,
+	COMPANY_NAME,
+	COMPANY_POSTAL_CODE,
+} from "#/constants/site";
 
 /**
  * 電話番号と運営統括責任者名は、特定商取引法11条ただし書により表示を省略している。
@@ -68,9 +72,9 @@ export function Legal() {
 							<tr>
 								<th scope="row">所在地</th>
 								<td>
-									〒980-0021
+									〒{COMPANY_POSTAL_CODE}
 									<br />
-									宮城県仙台市青葉区中央２丁目１１－１９ 仙南ビル４階－Ａ
+									{COMPANY_ADDRESS}
 								</td>
 							</tr>
 							<tr>

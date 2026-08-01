@@ -12,3 +12,7 @@ export const SITE_NAME = "日曜Build";
 export const ADSENSE_PUBLISHER_ID = "";
 
 export const COMPANY_NAME = "Cloudensis合同会社";
+
+export const COMPANY_POSTAL_CODE = "980-0021";
+export const COMPANY_ADDRESS =
+	"宮城県仙台市青葉区中央２丁目１１－１９ 仙南ビル４階－Ａ";
