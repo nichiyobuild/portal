@@ -1,8 +1,9 @@
 import { Layout } from "#/components/pages/layout";
+import { ABOUT_PAGE, CONTACT_PAGE, HOME_PAGE } from "#/constants/pages";
 
 export function NotFound() {
 	return (
-		<Layout title={["ページが見つかりません"]} noindex>
+		<Layout title="ページが見つかりません" noindex>
 			<div class="py-16 lg:py-24">
 				<p class="font-bold text-lime-400 text-sm">404</p>
 				<h1 class="mt-2 font-bold text-3xl text-slate-50 sm:text-4xl">
@@ -13,13 +14,13 @@ export function NotFound() {
 					URLに誤りがないかご確認ください。
 				</p>
 				<div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-					<a class="text-blue-300 hover:underline" href="/">
+					<a class="text-blue-300 hover:underline" href={HOME_PAGE.path}>
 						トップページ
 					</a>
-					<a class="text-blue-300 hover:underline" href="/about">
+					<a class="text-blue-300 hover:underline" href={ABOUT_PAGE.path}>
 						このサイトについて
 					</a>
-					<a class="text-blue-300 hover:underline" href="/contact">
+					<a class="text-blue-300 hover:underline" href={CONTACT_PAGE.path}>
 						お問い合わせ
 					</a>
 				</div>

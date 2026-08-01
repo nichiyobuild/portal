@@ -1,12 +1,13 @@
 import { Layout } from "#/components/pages/layout";
+import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
 import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Privacy() {
 	return (
 		<Layout
-			title={["プライバシーポリシー"]}
-			description="nichiyobuild.comにおける個人情報の取り扱いについて説明しています。"
-			path="/privacy"
+			title={PRIVACY_PAGE.title}
+			description={PRIVACY_PAGE.description}
+			path={PRIVACY_PAGE.path}
 		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
@@ -23,7 +24,7 @@ export function Privacy() {
 					</li>
 					<li>
 						個人情報の取り扱いに関する窓口:
-						<a href="/contact">お問い合わせフォーム</a>
+						<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					</li>
 				</ul>
 
@@ -135,7 +136,7 @@ export function Privacy() {
 				</ul>
 				<p>
 					当該国の個人情報の保護に関する制度、および委託先が講じている個人情報の保護のための措置に関する情報は、
-					<a href="/contact">お問い合わせフォーム</a>
+					<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					よりご請求いただけます。
 				</p>
 
@@ -157,14 +158,14 @@ export function Privacy() {
 				<p>
 					保有個人データについて、利用目的の通知、開示、訂正、追加、削除、
 					利用の停止、第三者提供の停止をご請求いただけます。
-					<a href="/contact">お問い合わせフォーム</a>
+					<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					よりご連絡ください。ご本人であることを確認したうえで、遅滞なく対応します。
 				</p>
 
 				<h2>苦情の申出先</h2>
 				<p>
 					個人情報の取り扱いに関するお問い合わせ、ご意見、苦情は
-					<a href="/contact">お問い合わせフォーム</a>
+					<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					よりお申し出ください。
 				</p>
 				<p>

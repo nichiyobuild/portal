@@ -1,12 +1,13 @@
 import { Layout } from "#/components/pages/layout";
+import { CONTACT_PAGE, PRIVACY_PAGE, TERMS_PAGE } from "#/constants/pages";
 import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Terms() {
 	return (
 		<Layout
-			title={["利用規約"]}
-			description="nichiyobuild.comおよび公開ゲームの利用規約です。"
-			path="/terms"
+			title={TERMS_PAGE.title}
+			description={TERMS_PAGE.description}
+			path={TERMS_PAGE.path}
 		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>利用規約</h1>
@@ -232,7 +233,7 @@ export function Terms() {
 				<h2>第12条（個人情報の取り扱い）</h2>
 				<p>
 					当社は、本サービスの利用によって取得する利用者の個人情報を、
-					<a href="/privacy">プライバシーポリシー</a>
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>
 					に従って適切に取り扱います。
 				</p>
 
@@ -258,7 +259,8 @@ export function Terms() {
 				<p>
 					当社から利用者への通知は、本サービス上への掲示または登録されたメールアドレス宛の送信により行います。
 					利用者から当社への連絡は、
-					<a href="/contact">お問い合わせフォーム</a>より行うものとします。
+					<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
+					より行うものとします。
 				</p>
 
 				<h2>第15条（権利義務の譲渡の禁止）</h2>

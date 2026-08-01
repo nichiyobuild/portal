@@ -2,14 +2,15 @@ import { Layout } from "#/components/pages/layout";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
+import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
 import { SITE_DOMAIN } from "#/constants/site";
 
 export function Contact() {
 	return (
 		<Layout
-			title={["お問い合わせ"]}
-			description="nichiyobuild.comおよび公開ゲームに関するお問い合わせはこちらから。"
-			path="/contact"
+			title={CONTACT_PAGE.title}
+			description={CONTACT_PAGE.description}
+			path={CONTACT_PAGE.path}
 		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>お問い合わせ</h1>
@@ -26,7 +27,7 @@ export function Contact() {
 					個人情報の開示等のご請求については、ご本人であることを確認したうえで対応します。
 					確認のために追加の情報をお伺いする場合があります。
 					個人情報の取り扱いについては
-					<a href="/privacy">プライバシーポリシー</a>をご覧ください。
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>をご覧ください。
 				</p>
 			</article>
 
@@ -97,7 +98,7 @@ export function Contact() {
 				<div class="flex items-start gap-3">
 					<Checkbox class="mt-1" id="agree" name="agree" required />
 					<Label for="agree" required>
-						<a class="text-blue-300 underline" href="/privacy">
+						<a class="text-blue-300 underline" href={PRIVACY_PAGE.path}>
 							プライバシーポリシー
 						</a>
 						に同意します

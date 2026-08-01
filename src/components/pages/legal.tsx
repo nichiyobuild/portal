@@ -1,4 +1,10 @@
 import { Layout } from "#/components/pages/layout";
+import {
+	CONTACT_PAGE,
+	LEGAL_PAGE,
+	PRIVACY_PAGE,
+	TERMS_PAGE,
+} from "#/constants/pages";
 import { COMPANY_NAME } from "#/constants/site";
 
 /**
@@ -29,9 +35,9 @@ import { COMPANY_NAME } from "#/constants/site";
 export function Legal() {
 	return (
 		<Layout
-			title={["特定商取引法に基づく表記"]}
-			description="特定商取引法第11条に基づく、当社の有料コンテンツ販売に関する表示です。"
-			path="/legal"
+			title={LEGAL_PAGE.title}
+			description={LEGAL_PAGE.description}
+			path={LEGAL_PAGE.path}
 		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>特定商取引法に基づく表記</h1>
@@ -41,7 +47,7 @@ export function Legal() {
 				</p>
 				<p>
 					本表記において表示を省略した事項については、
-					<a href="/contact">お問い合わせフォーム</a>
+					<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					よりご請求いただければ、遅滞なく電子メールにて提供します。
 				</p>
 
@@ -55,7 +61,7 @@ export function Legal() {
 							<tr>
 								<th scope="row">運営統括責任者</th>
 								<td>
-									<a href="/contact">お問い合わせフォーム</a>
+									<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 									よりご請求いただければ、遅滞なく開示します。
 								</td>
 							</tr>
@@ -70,14 +76,14 @@ export function Legal() {
 							<tr>
 								<th scope="row">電話番号</th>
 								<td>
-									<a href="/contact">お問い合わせフォーム</a>
+									<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 									よりご請求いただければ、遅滞なく開示します。
 								</td>
 							</tr>
 							<tr>
 								<th scope="row">お問い合わせ</th>
 								<td>
-									<a href="/contact">お問い合わせフォーム</a>
+									<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 									よりご連絡ください。通常3営業日以内に返信します。
 								</td>
 							</tr>
@@ -141,7 +147,7 @@ export function Legal() {
 									ただし、当社の責めに帰すべき事由によりコンテンツが提供されなかった場合、
 									および法令によりこれと異なる取り扱いが求められる場合は、この限りではありません。
 									この場合は
-									<a href="/contact">お問い合わせフォーム</a>
+									<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 									よりご連絡ください。
 								</td>
 							</tr>
@@ -166,8 +172,8 @@ export function Legal() {
 
 				<p>
 					本表記に定めのない事項については、
-					<a href="/terms">利用規約</a>および
-					<a href="/privacy">プライバシーポリシー</a>によります。
+					<a href={TERMS_PAGE.path}>利用規約</a>および
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>によります。
 				</p>
 
 				<p>最終更新日: 2026年7月30日</p>

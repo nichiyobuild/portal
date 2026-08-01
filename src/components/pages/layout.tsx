@@ -1,15 +1,12 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
-import {
-	DEFAULT_DESCRIPTION,
-	NAV_LINKS,
-	SITE_NAME,
-	SITE_ORIGIN,
-} from "#/constants/site";
+import { HOME_PAGE, PAGES } from "#/constants/pages";
+import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_ORIGIN } from "#/constants/site";
 
 type Props = {
 	children: Child;
-	title?: string[];
+	/** <title> の見出し部分。省略するとサイト名のみになる。 */
+	title?: string | null;
 	description?: string;
 	/**
 	 * このページの正規パス（例: "/about"）。
@@ -22,12 +19,12 @@ type Props = {
 
 export function Layout({
 	children,
-	title = [],
+	title = null,
 	description = DEFAULT_DESCRIPTION,
 	path,
 	noindex = false,
 }: Props) {
-	const pageTitle = [...title, SITE_NAME].join(" | ");
+	const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 	const canonicalUrl = path ? `${SITE_ORIGIN}${path}` : undefined;
 
 	return (
@@ -68,8 +65,8 @@ export function Layout({
 function Header() {
 	return (
 		<header class="p-4">
-			<a href="/">
-				<img src="/logo.svg" alt="日曜Build" width="186" height="24" />
+			<a href={HOME_PAGE.path}>
+				<img src="/logo.svg" alt={SITE_NAME} width="186" height="24" />
 			</a>
 		</header>
 	);
@@ -78,9 +75,9 @@ function Header() {
 function Footer() {
 	return (
 		<footer class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-4 py-8 text-sm sm:px-12">
-			{NAV_LINKS.map((link) => (
-				<a class="hover:underline" href={link.path} key={link.path}>
-					{link.label}
+			{PAGES.filter((page) => page.label !== null).map((page) => (
+				<a class="hover:underline" href={page.path} key={page.path}>
+					{page.label}
 				</a>
 			))}
 		</footer>

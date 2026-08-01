@@ -1,10 +1,11 @@
 import { Layout } from "#/components/pages/layout";
 import { Badge } from "#/components/ui/badge";
 import { type Game, games } from "#/constants/games";
+import { ABOUT_PAGE, HOME_PAGE } from "#/constants/pages";
 
 export function Home() {
 	return (
-		<Layout path="/">
+		<Layout path={HOME_PAGE.path}>
 			<div class="py-12 lg:py-20">
 				<section>
 					<h1 class="font-bold text-3xl text-slate-50 leading-tight sm:text-4xl lg:text-5xl">
@@ -39,7 +40,7 @@ export function Home() {
 						つくっている過程は、うまくいったことも失敗もそのままYouTubeとXで発信しています。
 					</p>
 					<div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-						<a class="text-blue-300 hover:underline" href="/about">
+						<a class="text-blue-300 hover:underline" href={ABOUT_PAGE.path}>
 							このサイトについて
 						</a>
 						<a

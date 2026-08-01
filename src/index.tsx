@@ -7,23 +7,18 @@ import { Legal } from "#/components/pages/legal";
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
-import type { NAV_LINKS } from "#/constants/site";
-import {
-	ADSENSE_PUBLISHER_ID,
-	INDEXABLE_PATHS,
-	SITE_ORIGIN,
-} from "#/constants/site";
+import type { PagePath } from "#/constants/pages";
+import { INDEXABLE_PATHS } from "#/constants/pages";
+import { ADSENSE_PUBLISHER_ID, SITE_ORIGIN } from "#/constants/site";
 
 const app = new Hono();
 
-type RoutePath = "/" | (typeof NAV_LINKS)[number]["path"];
-
 /**
- * NAV_LINKS（フッター・sitemapの元データ）にあるパスへ、対応するページを
- * 登録する。Record の型がキーの過不足を検出するため、NAV_LINKS にパスを
- * 追加してここへの登録を忘れると型エラーになる。
+ * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
+ * 対応するページを登録する。Record の型がキーの過不足を検出するため、
+ * PAGES にパスを追加してここへの登録を忘れると型エラーになる。
  */
-const routes: Record<RoutePath, FC> = {
+const routes: Record<PagePath, FC> = {
 	"/": Home,
 	"/about": About,
 	"/terms": Terms,
@@ -32,7 +27,7 @@ const routes: Record<RoutePath, FC> = {
 	"/contact": Contact,
 };
 
-for (const path of Object.keys(routes) as RoutePath[]) {
+for (const path of Object.keys(routes) as PagePath[]) {
 	const Component = routes[path];
 	app.get(path, (c) => c.html(<Component />));
 }

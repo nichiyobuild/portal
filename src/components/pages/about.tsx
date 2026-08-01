@@ -1,12 +1,18 @@
 import { Layout } from "#/components/pages/layout";
+import {
+	ABOUT_PAGE,
+	CONTACT_PAGE,
+	HOME_PAGE,
+	PRIVACY_PAGE,
+} from "#/constants/pages";
 import { SITE_DOMAIN } from "#/constants/site";
 
 export function About() {
 	return (
 		<Layout
-			title={["このサイトについて"]}
-			description="日曜Buildの運営方針、対象ユーザー、動作環境について説明しています。"
-			path="/about"
+			title={ABOUT_PAGE.title}
+			description={ABOUT_PAGE.description}
+			path={ABOUT_PAGE.path}
 		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
@@ -26,7 +32,8 @@ export function About() {
 				</ul>
 				<p>
 					新しいゲームは、完成したものから順に追加していきます。
-					公開中のゲームは<a href="/">トップページ</a>から一覧できます。
+					公開中のゲームは<a href={HOME_PAGE.path}>トップページ</a>
+					から一覧できます。
 				</p>
 
 				<h2>動作環境</h2>
@@ -48,7 +55,7 @@ export function About() {
 				<p>
 					また、プレイ状況の保存などのために、一部のゲームではアカウント登録が必要です。
 					登録時にお預かりする情報の取り扱いについては
-					<a href="/privacy">プライバシーポリシー</a>をご覧ください。
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>をご覧ください。
 				</p>
 
 				<h2>運営の目的</h2>
@@ -99,18 +106,18 @@ export function About() {
 				</p>
 				<p>
 					運営事業者の情報は
-					<a href="/privacy">プライバシーポリシー</a>に記載しています。
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>に記載しています。
 				</p>
 				<p>
 					ご意見・ご質問・不具合の報告などは
-					<a href="/contact">お問い合わせ</a>からご連絡ください。
+					<a href={CONTACT_PAGE.path}>お問い合わせ</a>からご連絡ください。
 				</p>
 
 				<h2>広告について</h2>
 				<p>
 					当サイトは、運営費用をまかなうために第三者配信の広告サービスを利用しています。
 					広告配信事業者によるCookieの使用などの詳細については
-					<a href="/privacy">プライバシーポリシー</a>をご覧ください。
+					<a href={PRIVACY_PAGE.path}>プライバシーポリシー</a>をご覧ください。
 				</p>
 			</article>
 		</Layout>
