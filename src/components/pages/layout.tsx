@@ -1,13 +1,13 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
 import { HOME_PAGE, PAGES } from "#/constants/pages";
-import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_ORIGIN } from "#/constants/site";
+import { SITE_NAME, SITE_ORIGIN } from "#/constants/site";
 
 type Props = {
 	children: Child;
 	/** <title> の見出し部分。省略するとサイト名のみになる。 */
-	title?: string | null;
-	description?: string;
+	title?: string;
+	description: string;
 	/**
 	 * このページの正規パス（例: "/about"）。
 	 * canonical と OGP の og:url に使う。存在しないURLを指すことになる
@@ -19,8 +19,8 @@ type Props = {
 
 export function Layout({
 	children,
-	title = null,
-	description = DEFAULT_DESCRIPTION,
+	title,
+	description,
 	path,
 	noindex = false,
 }: Props) {
@@ -75,9 +75,9 @@ function Header() {
 function Footer() {
 	return (
 		<footer class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-4 py-8 text-sm sm:px-12">
-			{PAGES.filter((page) => page.label !== null).map((page) => (
+			{PAGES.filter((page) => page.path !== HOME_PAGE.path).map((page) => (
 				<a class="hover:underline" href={page.path} key={page.path}>
-					{page.label}
+					{page.title}
 				</a>
 			))}
 		</footer>

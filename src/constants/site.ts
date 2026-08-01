@@ -5,10 +5,6 @@ export const SITE_ORIGIN = `https://${SITE_DOMAIN}`;
 
 export const SITE_NAME = "日曜Build";
 
-/** ページ側で description を指定しなかった場合に使う既定値。 */
-export const DEFAULT_DESCRIPTION =
-	"ブラウザですぐ遊べるゲームを公開しています。インストールも会員登録も不要、PCでもスマホでもその場で遊べます。";
-
 /**
  * TODO: AdSenseの承認後、パブリッシャーID（pub- で始まる16桁）を設定する。
  * 空のあいだ /ads.txt は404を返すので、無効な内容が配信されることはない。

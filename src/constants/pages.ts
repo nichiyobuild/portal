@@ -1,24 +1,18 @@
-import { DEFAULT_DESCRIPTION } from "#/constants/site";
-
 export type PageMeta = {
 	path: string;
-	/** フッターに表示するリンクの文字列。null ならフッターに出さない。 */
-	label: string | null;
-	/** <title> と OGP の title に使う見出し。null ならサイト名のみ表示する。 */
 	title: string | null;
 	description: string;
 };
 
 export const HOME_PAGE = {
 	path: "/",
-	label: null,
 	title: null,
-	description: DEFAULT_DESCRIPTION,
+	description:
+		"ブラウザですぐ遊べるゲームを公開しています。インストールも会員登録も不要、PCでもスマホでもその場で遊べます。",
 } as const satisfies PageMeta;
 
 export const ABOUT_PAGE = {
 	path: "/about",
-	label: "このサイトについて",
 	title: "このサイトについて",
 	description:
 		"日曜Buildの運営方針、対象ユーザー、動作環境について説明しています。",
@@ -26,14 +20,12 @@ export const ABOUT_PAGE = {
 
 export const TERMS_PAGE = {
 	path: "/terms",
-	label: "利用規約",
 	title: "利用規約",
 	description: "nichiyobuild.comおよび公開ゲームの利用規約です。",
 } as const satisfies PageMeta;
 
 export const PRIVACY_PAGE = {
 	path: "/privacy",
-	label: "プライバシーポリシー",
 	title: "プライバシーポリシー",
 	description:
 		"nichiyobuild.comにおける個人情報の取り扱いについて説明しています。",
@@ -41,7 +33,6 @@ export const PRIVACY_PAGE = {
 
 export const LEGAL_PAGE = {
 	path: "/legal",
-	label: "特定商取引法に基づく表記",
 	title: "特定商取引法に基づく表記",
 	description:
 		"特定商取引法第11条に基づく、当社の有料コンテンツ販売に関する表示です。",
@@ -49,7 +40,6 @@ export const LEGAL_PAGE = {
 
 export const CONTACT_PAGE = {
 	path: "/contact",
-	label: "お問い合わせ",
 	title: "お問い合わせ",
 	description:
 		"nichiyobuild.comおよび公開ゲームに関するお問い合わせはこちらから。",
