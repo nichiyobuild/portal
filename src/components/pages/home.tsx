@@ -69,7 +69,7 @@ type GameCardProps = {
 function GameCard({ game }: GameCardProps) {
 	return (
 		<a
-			class="group flex flex-col rounded-lg border border-slate-800 bg-slate-900/40 p-6 transition-colors hover:border-slate-600 hover:bg-slate-900"
+			class="flex flex-col rounded-lg border border-slate-800 bg-slate-900/40 p-6 transition-colors hover:border-slate-600 hover:bg-slate-900"
 			href={game.url}
 		>
 			<Badge class="self-start">{game.category}</Badge>
@@ -78,7 +78,7 @@ function GameCard({ game }: GameCardProps) {
 				{game.description}
 			</p>
 			<p class="mt-4 text-slate-500 text-xs">{game.meta.join(" · ")}</p>
-			<span class="mt-4 inline-block font-medium text-blue-300 text-sm transition-transform group-hover:translate-x-1">
+			<span class="mt-4 inline-block font-medium text-blue-300 text-sm transition-transform">
 				遊ぶ →
 			</span>
 		</a>
