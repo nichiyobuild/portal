@@ -1,6 +1,6 @@
 import type { Child } from "hono/jsx";
 
-const badgeClass = "rounded bg-blue-400/15 px-1.5 py-0.5 text-blue-300 text-xs";
+const badgeClass = "rounded bg-lime-400/15 px-1.5 py-0.5 text-lime-300 text-xs";
 
 type Props = {
 	children: Child;

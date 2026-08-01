@@ -4,7 +4,7 @@ export function NotFound() {
 	return (
 		<Layout title={["ページが見つかりません"]} noindex>
 			<div class="py-16 lg:py-24">
-				<p class="font-bold text-[#9CDA24] text-sm">404</p>
+				<p class="font-bold text-lime-400 text-sm">404</p>
 				<h1 class="mt-2 font-bold text-3xl text-slate-50 sm:text-4xl">
 					ページが見つかりません
 				</h1>

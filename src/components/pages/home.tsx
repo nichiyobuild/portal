@@ -12,7 +12,7 @@ export function Home() {
 						<br class="sm:hidden" />
 						すぐ遊べる
 						<br />
-						<span class="text-[#9CDA24]">ゲームをつくっています</span>
+						<span class="text-lime-400">ゲームをつくっています</span>
 					</h1>
 					<p class="mt-6 max-w-2xl text-lg text-slate-300 leading-relaxed">
 						インストールも会員登録も不要。
