@@ -1,7 +1,5 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
-import { Footer } from "#/components/ui/footer";
-import { Header } from "#/components/ui/header";
 
 type Props = {
 	children: Child;
@@ -27,5 +25,27 @@ export function Layout({ children, title = [], noindex = false }: Props) {
 				</div>
 			</body>
 		</html>
+	);
+}
+
+function Header() {
+	return (
+		<header class="p-4">
+			<a href="/">
+				<img src="/logo.svg" alt="logo" width="186" height="24" />
+			</a>
+		</header>
+	);
+}
+
+function Footer() {
+	return (
+		<footer class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-4 py-8 text-sm sm:px-12">
+			<a href="/about">このサイトについて</a>
+			<a href="/terms">利用規約</a>
+			<a href="/privacy">プライバシーポリシー</a>
+			<a href="/legal">特定商取引法に基づく表記</a>
+			<a href="/contact">お問い合わせ</a>
+		</footer>
 	);
 }
