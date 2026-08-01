@@ -23,6 +23,11 @@ export function Privacy() {
 						所在地: 宮城県仙台市青葉区中央２丁目１１－１９ 仙南ビル４階－Ａ
 					</li>
 					<li>
+						代表者の氏名:
+						<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
+						よりご請求いただければ、遅滞なく開示します。
+					</li>
+					<li>
 						個人情報の取り扱いに関する窓口:
 						<a href={CONTACT_PAGE.path}>お問い合わせフォーム</a>
 					</li>
