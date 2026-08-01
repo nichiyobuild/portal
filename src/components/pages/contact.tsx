@@ -1,5 +1,4 @@
 import { Layout } from "#/components/pages/layout";
-import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
@@ -28,13 +27,12 @@ export function Contact() {
 			</article>
 
 			{/* TODO: 送信処理の実装 */}
-			<form class="mt-10 max-w-2xl space-y-6">
+			<form class="mx-auto mt-10 max-w-2xl space-y-6">
 				<div>
-					<Label for="category">
+					<Label for="category" required>
 						お問い合わせの種類
-						<Badge class="ml-2">必須</Badge>
 					</Label>
-					<Select class="mt-2" id="category" name="category">
+					<Select class="mt-2" id="category" name="category" required>
 						<option value="">選択してください</option>
 						<option value="bug">ゲームの不具合について</option>
 						<option value="feedback">ゲームへのご意見・ご要望</option>
@@ -59,9 +57,8 @@ export function Contact() {
 				</div>
 
 				<div>
-					<Label for="email">
+					<Label for="email" required>
 						メールアドレス
-						<Badge class="ml-2">必須</Badge>
 					</Label>
 					<Input
 						class="mt-2"
@@ -69,6 +66,7 @@ export function Contact() {
 						name="email"
 						placeholder="you@example.com"
 						type="email"
+						required
 					/>
 					<p class="mt-2 text-slate-400 text-sm">
 						回答の送信先として使用します。
@@ -76,9 +74,8 @@ export function Contact() {
 				</div>
 
 				<div>
-					<Label for="message">
+					<Label for="message" required>
 						お問い合わせ内容
-						<Badge class="ml-2">必須</Badge>
 					</Label>
 					<Textarea
 						aria-describedby="message-hint"
@@ -86,6 +83,7 @@ export function Contact() {
 						id="message"
 						name="message"
 						rows={8}
+						required
 					/>
 					<p class="mt-2 text-slate-400 text-sm" id="message-hint">
 						不具合の場合は、お使いの端末とブラウザ、発生した状況をお書きいただけると助かります。
@@ -93,13 +91,12 @@ export function Contact() {
 				</div>
 
 				<div class="flex items-start gap-3">
-					<Checkbox class="mt-1" id="agree" name="agree" />
-					<Label for="agree">
+					<Checkbox class="mt-1" id="agree" name="agree" required />
+					<Label for="agree" required>
 						<a class="text-blue-300 underline" href="/privacy">
 							プライバシーポリシー
 						</a>
 						に同意します
-						<Badge class="ml-2">必須</Badge>
 					</Label>
 				</div>
 
