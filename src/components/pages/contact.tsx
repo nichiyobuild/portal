@@ -66,6 +66,7 @@ export function Contact() {
 						メールアドレス
 					</Label>
 					<Input
+						aria-describedby="email-hint"
 						class="mt-2"
 						id="email"
 						name="email"
@@ -73,7 +74,7 @@ export function Contact() {
 						type="email"
 						required
 					/>
-					<p class="mt-2 text-slate-400 text-sm">
+					<p class="mt-2 text-slate-400 text-sm" id="email-hint">
 						回答の送信先として使用します。
 					</p>
 				</div>
