@@ -26,7 +26,10 @@ export function Textarea({ class: className, ...props }: TextareaProps) {
 	return <textarea class={merge(fieldClass, className)} {...props} />;
 }
 
-export function Checkbox({ class: className, ...props }: InputProps) {
+export function Checkbox({
+	class: className,
+	...props
+}: Omit<InputProps, "type">) {
 	return (
 		<input class={merge(checkboxClass, className)} {...props} type="checkbox" />
 	);
