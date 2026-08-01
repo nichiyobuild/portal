@@ -10,6 +10,13 @@
 		"format": "biome check --write --unsafe .",
 		"typecheck": "tsc --noEmit"
 	},
+	"imports": {
+		"#/": "./src/"
+	},
+	"engines": {
+		"node": ">=26.0.0",
+		"npm": ">=11.0.0"
+	},
 	"dependencies": {
 		"hono": "^4.12.32"
 	},
@@ -23,8 +30,5 @@
 		"vite": "^8.1.5",
 		"vite-ssr-components": "^0.6.1",
 		"wrangler": "^4.115.0"
-	},
-	"imports": {
-		"#/": "./src/"
 	}
 }
