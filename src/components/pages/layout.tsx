@@ -18,7 +18,7 @@ export function Layout({ children, title = [], noindex = false }: Props) {
 				{noindex && <meta name="robots" content="noindex, noarchive" />}
 			</head>
 			<body class="bg-slate-950 text-slate-50">
-				<div class="flex h-svh flex-col">
+				<div class="flex min-h-svh flex-col">
 					<Header />
 					<main class="mx-auto w-full max-w-5xl flex-1 px-4">{children}</main>
 					<Footer />
