@@ -1,6 +1,6 @@
 import { Layout } from "#/components/pages/layout";
-import { type Game, games } from "#/constants/games";
 import { Badge } from "#/components/ui/badge";
+import { type Game, games } from "#/constants/games";
 
 export function Home() {
 	return (
