@@ -1,5 +1,6 @@
 import type { Child, JSX } from "hono/jsx";
 import { Badge } from "#/components/ui/badge";
+import { cn } from "#/lib/utils";
 
 const labelClass = "block text-sm font-medium text-slate-200";
 
@@ -19,11 +20,7 @@ export function Label({
 	...props
 }: Props) {
 	return (
-		<label
-			class={className ? `${labelClass} ${className}` : labelClass}
-			for={htmlFor}
-			{...props}
-		>
+		<label class={cn(labelClass, className)} for={htmlFor} {...props}>
 			{children}
 			{required && <Badge class="ml-2">必須</Badge>}
 		</label>
