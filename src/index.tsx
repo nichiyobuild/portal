@@ -30,12 +30,16 @@ app.get("/privacy", (c) => {
 	return c.html(<Privacy />);
 });
 
+app.get("/legal", (c) => {
+	return c.html(<Legal />);
+});
+
 app.get("/contact", (c) => {
 	return c.html(<Contact />);
 });
 
-app.get("/legal", (c) => {
-	return c.html(<Legal />);
+app.notFound((c) => {
+	return c.html(<NotFound />, 404);
 });
 
 // noindex のページも Disallow しない。クロールできないと meta robots を
@@ -77,10 +81,6 @@ app.get("/ads.txt", (c) => {
 	return c.text(
 		`google.com, ${ADSENSE_PUBLISHER_ID}, DIRECT, f08c47fec0942fa0\n`,
 	);
-});
-
-app.notFound((c) => {
-	return c.html(<NotFound />, 404);
 });
 
 export default app;
