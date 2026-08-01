@@ -27,7 +27,7 @@ import { Layout } from "#/components/templates/layout";
 
 export function Legal() {
 	return (
-		<Layout title={["特定商取引法に基づく表記"]} noindex>
+		<Layout title={["特定商取引法に基づく表記"]}>
 			<article class="prose-base prose-slate prose-invert py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>特定商取引法に基づく表記</h1>
 				<p>
