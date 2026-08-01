@@ -1,6 +1,11 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
-import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_ORIGIN } from "#/constants/site";
+import {
+	DEFAULT_DESCRIPTION,
+	NAV_LINKS,
+	SITE_NAME,
+	SITE_ORIGIN,
+} from "#/constants/site";
 
 type Props = {
 	children: Child;
@@ -73,21 +78,11 @@ function Header() {
 function Footer() {
 	return (
 		<footer class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-4 py-8 text-sm sm:px-12">
-			<a href="/about" class="hover:underline">
-				このサイトについて
-			</a>
-			<a href="/terms" class="hover:underline">
-				利用規約
-			</a>
-			<a href="/privacy" class="hover:underline">
-				プライバシーポリシー
-			</a>
-			<a href="/legal" class="hover:underline">
-				特定商取引法に基づく表記
-			</a>
-			<a href="/contact" class="hover:underline">
-				お問い合わせ
-			</a>
+			{NAV_LINKS.map((link) => (
+				<a class="hover:underline" href={link.path} key={link.path}>
+					{link.label}
+				</a>
+			))}
 		</footer>
 	);
 }

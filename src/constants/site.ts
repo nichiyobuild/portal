@@ -10,17 +10,25 @@ export const DEFAULT_DESCRIPTION =
 	"ブラウザですぐ遊べるゲームを公開しています。インストールも会員登録も不要、PCでもスマホでもその場で遊べます。";
 
 /**
- * sitemap.xml に載せるパス。
- * noindex のページは含めないこと。noindex のURLを送信すると
- * Search Console に警告が出続けるため。
+ * トップページ以外の、フッターに載せる公開ページ。
+ * ここに追加すると、フッターのリンクと sitemap.xml（INDEXABLE_PATHS）の
+ * 両方に自動で反映される。noindex のページは載せないこと。
+ *
+ * ルーティング（index.tsx）は別途、ここに定義したパスへコンポーネントを
+ * 登録する必要があり、対応漏れは型エラーになる。
  */
-export const INDEXABLE_PATHS = [
+export const NAV_LINKS = [
+	{ path: "/about", label: "このサイトについて" },
+	{ path: "/terms", label: "利用規約" },
+	{ path: "/privacy", label: "プライバシーポリシー" },
+	{ path: "/legal", label: "特定商取引法に基づく表記" },
+	{ path: "/contact", label: "お問い合わせ" },
+] as const;
+
+/** sitemap.xml に載せるパス。トップページ + NAV_LINKS。 */
+export const INDEXABLE_PATHS: string[] = [
 	"/",
-	"/about",
-	"/terms",
-	"/privacy",
-	"/legal",
-	"/contact",
+	...NAV_LINKS.map((link) => link.path),
 ];
 
 /**

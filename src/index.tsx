@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { FC } from "hono/jsx";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
 import { Home } from "#/components/pages/home";
@@ -6,6 +7,7 @@ import { Legal } from "#/components/pages/legal";
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
+import type { NAV_LINKS } from "#/constants/site";
 import {
 	ADSENSE_PUBLISHER_ID,
 	INDEXABLE_PATHS,
@@ -14,29 +16,26 @@ import {
 
 const app = new Hono();
 
-app.get("/", (c) => {
-	return c.html(<Home />);
-});
+type RoutePath = "/" | (typeof NAV_LINKS)[number]["path"];
 
-app.get("/about", (c) => {
-	return c.html(<About />);
-});
+/**
+ * NAV_LINKS（フッター・sitemapの元データ）にあるパスへ、対応するページを
+ * 登録する。Record の型がキーの過不足を検出するため、NAV_LINKS にパスを
+ * 追加してここへの登録を忘れると型エラーになる。
+ */
+const routes: Record<RoutePath, FC> = {
+	"/": Home,
+	"/about": About,
+	"/terms": Terms,
+	"/privacy": Privacy,
+	"/legal": Legal,
+	"/contact": Contact,
+};
 
-app.get("/terms", (c) => {
-	return c.html(<Terms />);
-});
-
-app.get("/privacy", (c) => {
-	return c.html(<Privacy />);
-});
-
-app.get("/legal", (c) => {
-	return c.html(<Legal />);
-});
-
-app.get("/contact", (c) => {
-	return c.html(<Contact />);
-});
+for (const path of Object.keys(routes) as RoutePath[]) {
+	const Component = routes[path];
+	app.get(path, (c) => c.html(<Component />));
+}
 
 app.notFound((c) => {
 	return c.html(<NotFound />, 404);
