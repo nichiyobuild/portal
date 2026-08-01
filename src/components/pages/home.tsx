@@ -1,4 +1,4 @@
-import { Layout } from "#/components/templates/layout";
+import { Layout } from "#/components/pages/layout";
 import { GameCard } from "#/components/ui/game-card";
 import { games } from "#/constants/games";
 

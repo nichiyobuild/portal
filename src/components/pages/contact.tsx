@@ -1,4 +1,4 @@
-import { Layout } from "#/components/templates/layout";
+import { Layout } from "#/components/pages/layout";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";

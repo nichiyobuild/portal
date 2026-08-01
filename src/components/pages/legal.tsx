@@ -1,4 +1,4 @@
-import { Layout } from "#/components/templates/layout";
+import { Layout } from "#/components/pages/layout";
 
 /**
  * 電話番号と運営統括責任者名は、特定商取引法11条ただし書により表示を省略している。

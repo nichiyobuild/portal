@@ -1,11 +1,11 @@
 import { Hono } from "hono";
-import { About } from "#/components/templates/about";
-import { Contact } from "#/components/templates/contact";
-import { Home } from "#/components/templates/home";
-import { Legal } from "#/components/templates/legal";
-import { NotFound } from "#/components/templates/not-found";
-import { Privacy } from "#/components/templates/privacy";
-import { Terms } from "#/components/templates/terms";
+import { About } from "#/components/pages/about";
+import { Contact } from "#/components/pages/contact";
+import { Home } from "#/components/pages/home";
+import { Legal } from "#/components/pages/legal";
+import { NotFound } from "#/components/pages/not-found";
+import { Privacy } from "#/components/pages/privacy";
+import { Terms } from "#/components/pages/terms";
 import {
 	ADSENSE_PUBLISHER_ID,
 	INDEXABLE_PATHS,
