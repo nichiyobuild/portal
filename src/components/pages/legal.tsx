@@ -1,4 +1,5 @@
 import { Layout } from "#/components/pages/layout";
+import { COMPANY_NAME } from "#/constants/site";
 
 /**
  * 電話番号と運営統括責任者名は、特定商取引法11条ただし書により表示を省略している。
@@ -45,7 +46,7 @@ export function Legal() {
 						<tbody>
 							<tr>
 								<th scope="row">販売事業者名</th>
-								<td>Cloudensis合同会社</td>
+								<td>{COMPANY_NAME}</td>
 							</tr>
 							<tr>
 								<th scope="row">運営統括責任者</th>

@@ -20,3 +20,5 @@ export const INDEXABLE_PATHS = [
  * 空のあいだ /ads.txt は404を返すので、無効な内容が配信されることはない。
  */
 export const ADSENSE_PUBLISHER_ID = "";
+
+export const COMPANY_NAME = "Cloudensis合同会社";

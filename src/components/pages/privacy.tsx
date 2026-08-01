@@ -1,4 +1,5 @@
 import { Layout } from "#/components/pages/layout";
+import { COMPANY_NAME } from "#/constants/site";
 
 export function Privacy() {
 	return (
@@ -6,13 +7,13 @@ export function Privacy() {
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
 				<p>
-					Cloudensis合同会社（以下「当社」）は、当社が運営する nichiyobuild.com
+					{COMPANY_NAME}（以下「当社」）は、当社が運営する nichiyobuild.com
 					（以下「当サイト」）における利用者の個人情報の取り扱いについて、以下のとおり定めます。
 				</p>
 
 				<h2>事業者情報</h2>
 				<ul>
-					<li>事業者名: Cloudensis合同会社</li>
+					<li>事業者名: {COMPANY_NAME}</li>
 					<li>
 						所在地: 宮城県仙台市青葉区中央２丁目１１－１９ 仙南ビル４階－Ａ
 					</li>

@@ -1,4 +1,5 @@
 import { Layout } from "#/components/pages/layout";
+import { COMPANY_NAME } from "#/constants/site";
 
 export function Terms() {
 	return (
@@ -6,7 +7,7 @@ export function Terms() {
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>利用規約</h1>
 				<p>
-					この利用規約（以下「本規約」）は、Cloudensis合同会社（以下「当社」）が
+					この利用規約（以下「本規約」）は、{COMPANY_NAME}（以下「当社」）が
 					nichiyobuild.comおよびそのサブドメインで提供するウェブサイトおよびゲーム
 					（以下「本サービス」）の利用条件を定めるものです。
 					本サービスをご利用になる方（以下「利用者」）は、本規約に同意したうえでご利用ください。
