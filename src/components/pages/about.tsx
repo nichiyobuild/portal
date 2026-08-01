@@ -3,7 +3,11 @@ import { SITE_DOMAIN } from "#/constants/site";
 
 export function About() {
 	return (
-		<Layout title={["このサイトについて"]}>
+		<Layout
+			title={["このサイトについて"]}
+			description="日曜Buildの運営方針、対象ユーザー、動作環境について説明しています。"
+			path="/about"
+		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>

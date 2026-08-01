@@ -4,7 +4,7 @@ import { type Game, games } from "#/constants/games";
 
 export function Home() {
 	return (
-		<Layout>
+		<Layout path="/">
 			<div class="py-12 lg:py-20">
 				<section>
 					<h1 class="font-bold text-3xl text-slate-50 leading-tight sm:text-4xl lg:text-5xl">

@@ -3,7 +3,11 @@ import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Privacy() {
 	return (
-		<Layout title={["プライバシーポリシー"]}>
+		<Layout
+			title={["プライバシーポリシー"]}
+			description="nichiyobuild.comにおける個人情報の取り扱いについて説明しています。"
+			path="/privacy"
+		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
 				<p>

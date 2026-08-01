@@ -3,6 +3,12 @@ export const SITE_DOMAIN = "nichiyobuild.com";
 /** sitemap.xml や robots.txt が出力する正規オリジン。 */
 export const SITE_ORIGIN = `https://${SITE_DOMAIN}`;
 
+export const SITE_NAME = "日曜Build";
+
+/** ページ側で description を指定しなかった場合に使う既定値。 */
+export const DEFAULT_DESCRIPTION =
+	"ブラウザですぐ遊べるゲームを公開しています。インストールも会員登録も不要、PCでもスマホでもその場で遊べます。";
+
 /**
  * sitemap.xml に載せるパス。
  * noindex のページは含めないこと。noindex のURLを送信すると

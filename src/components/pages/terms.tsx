@@ -3,7 +3,11 @@ import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Terms() {
 	return (
-		<Layout title={["利用規約"]}>
+		<Layout
+			title={["利用規約"]}
+			description="nichiyobuild.comおよび公開ゲームの利用規約です。"
+			path="/terms"
+		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>利用規約</h1>
 				<p>

@@ -28,7 +28,11 @@ import { COMPANY_NAME } from "#/constants/site";
 
 export function Legal() {
 	return (
-		<Layout title={["特定商取引法に基づく表記"]}>
+		<Layout
+			title={["特定商取引法に基づく表記"]}
+			description="特定商取引法第11条に基づく、当社の有料コンテンツ販売に関する表示です。"
+			path="/legal"
+		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>特定商取引法に基づく表記</h1>
 				<p>

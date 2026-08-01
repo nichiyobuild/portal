@@ -6,7 +6,11 @@ import { SITE_DOMAIN } from "#/constants/site";
 
 export function Contact() {
 	return (
-		<Layout title={["お問い合わせ"]}>
+		<Layout
+			title={["お問い合わせ"]}
+			description="nichiyobuild.comおよび公開ゲームに関するお問い合わせはこちらから。"
+			path="/contact"
+		>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>お問い合わせ</h1>
 				<p>
