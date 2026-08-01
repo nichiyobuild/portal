@@ -1,4 +1,5 @@
 import { Layout } from "#/components/pages/layout";
+import { SITE_DOMAIN } from "#/constants/site";
 
 export function About() {
 	return (
@@ -6,7 +7,8 @@ export function About() {
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>
-					nichiyobuild.comは、ブラウザですぐに遊べるゲームを公開しているサイトです。
+					{SITE_DOMAIN}
+					は、ブラウザですぐに遊べるゲームを公開しているサイトです。
 					アプリのインストールや専用の環境は必要ありません。
 				</p>
 

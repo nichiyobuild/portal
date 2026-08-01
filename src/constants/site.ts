@@ -1,5 +1,7 @@
+export const SITE_DOMAIN = "nichiyobuild.com";
+
 /** sitemap.xml や robots.txt が出力する正規オリジン。 */
-export const SITE_ORIGIN = "https://nichiyobuild.com";
+export const SITE_ORIGIN = `https://${SITE_DOMAIN}`;
 
 /**
  * sitemap.xml に載せるパス。

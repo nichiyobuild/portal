@@ -1,5 +1,5 @@
 import { Layout } from "#/components/pages/layout";
-import { COMPANY_NAME } from "#/constants/site";
+import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Privacy() {
 	return (
@@ -7,7 +7,7 @@ export function Privacy() {
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
 				<p>
-					{COMPANY_NAME}（以下「当社」）は、当社が運営する nichiyobuild.com
+					{COMPANY_NAME}（以下「当社」）は、当社が運営する {SITE_DOMAIN}
 					（以下「当サイト」）における利用者の個人情報の取り扱いについて、以下のとおり定めます。
 				</p>
 

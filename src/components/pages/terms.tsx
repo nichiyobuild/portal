@@ -1,5 +1,5 @@
 import { Layout } from "#/components/pages/layout";
-import { COMPANY_NAME } from "#/constants/site";
+import { COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Terms() {
 	return (
@@ -8,7 +8,7 @@ export function Terms() {
 				<h1>利用規約</h1>
 				<p>
 					この利用規約（以下「本規約」）は、{COMPANY_NAME}（以下「当社」）が
-					nichiyobuild.comおよびそのサブドメインで提供するウェブサイトおよびゲーム
+					{SITE_DOMAIN}およびそのサブドメインで提供するウェブサイトおよびゲーム
 					（以下「本サービス」）の利用条件を定めるものです。
 					本サービスをご利用になる方（以下「利用者」）は、本規約に同意したうえでご利用ください。
 				</p>

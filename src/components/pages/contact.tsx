@@ -3,6 +3,7 @@ import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
+import { SITE_DOMAIN } from "#/constants/site";
 
 export function Contact() {
 	return (
@@ -11,7 +12,8 @@ export function Contact() {
 				<article class="prose prose-slate prose-invert max-w-none prose-a:text-blue-300">
 					<h1>お問い合わせ</h1>
 					<p>
-						nichiyobuild.comおよび当サイトで公開しているゲームに関するお問い合わせは、
+						{SITE_DOMAIN}
+						および当サイトで公開しているゲームに関するお問い合わせは、
 						以下のフォームからお願いします。
 					</p>
 					<p>
