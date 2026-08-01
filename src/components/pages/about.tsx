@@ -1,4 +1,5 @@
 import { Layout } from "#/components/pages/layout";
+import { games } from "#/constants/games";
 import {
 	ABOUT_PAGE,
 	CONTACT_PAGE,
@@ -25,10 +26,11 @@ export function About() {
 				<h2>公開しているゲーム</h2>
 
 				<ul>
-					<li>
-						<a href="https://2048.nichiyobuild.com/">2048ゲーム</a> —
-						フリック操作でパネルをマージして数字を大きくしていくパズルゲーム
-					</li>
+					{games.slice(0, 3).map((game) => (
+						<li>
+							<a href={game.url}>{game.title}</a> : {game.description}
+						</li>
+					))}
 				</ul>
 				<p>
 					新しいゲームは、完成したものから順に追加していきます。
