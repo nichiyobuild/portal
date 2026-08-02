@@ -2,8 +2,13 @@ import { Layout } from "#/components/pages/layout";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
+import { Turnstile } from "#/components/ui/turnstile";
+import {
+	CONTACT_CATEGORY_LABELS,
+	CONTACT_CATEGORY_VALUES,
+} from "#/constants/contact";
 import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
-import { SITE_DOMAIN } from "#/constants/site";
+import { SITE_DOMAIN, TURNSTILE_ACTION_CONTACT } from "#/constants/site";
 
 export function Contact() {
 	return (
@@ -31,32 +36,35 @@ export function Contact() {
 				</p>
 			</article>
 
-			{/* TODO: 送信処理の実装 */}
-			<form class="mx-auto mt-10 max-w-2xl space-y-6">
+			<form
+				action="/contact"
+				method="post"
+				class="mx-auto mt-10 max-w-2xl space-y-6"
+			>
 				<div>
 					<Label for="category" required>
 						お問い合わせの種類
 					</Label>
 					<Select class="mt-2" id="category" name="category" required>
 						<option value="">選択してください</option>
-						<option value="bug">ゲームの不具合について</option>
-						<option value="feedback">ゲームへのご意見・ご要望</option>
-						<option value="payment">有料コンテンツ・お支払いについて</option>
-						<option value="account">アカウントについて</option>
-						<option value="disclosure">個人情報の開示等のご請求</option>
-						<option value="complaint">個人情報の取り扱いに関する苦情</option>
-						<option value="business">取材・お仕事のご依頼</option>
-						<option value="other">その他</option>
+						{CONTACT_CATEGORY_VALUES.map((value) => (
+							<option key={value} value={value}>
+								{CONTACT_CATEGORY_LABELS[value]}
+							</option>
+						))}
 					</Select>
 				</div>
 
 				<div>
-					<Label for="name">お名前</Label>
+					<Label for="name" required>
+						お名前
+					</Label>
 					<Input
 						class="mt-2"
 						id="name"
 						name="name"
 						placeholder="日曜 太郎"
+						required
 						type="text"
 					/>
 				</div>
@@ -96,7 +104,7 @@ export function Contact() {
 					</p>
 				</div>
 
-				<div class="flex items-start gap-3">
+				<div class="flex items-center justify-center gap-3">
 					<Checkbox class="mt-1" id="agree" name="agree" required />
 					<Label for="agree" required>
 						<a class="text-blue-300 underline" href={PRIVACY_PAGE.path}>
@@ -106,7 +114,14 @@ export function Contact() {
 					</Label>
 				</div>
 
-				<Button type="submit">送信する</Button>
+				<Turnstile
+					action={TURNSTILE_ACTION_CONTACT}
+					class="flex justify-center"
+				/>
+
+				<Button type="submit" class="mx-auto block">
+					送信する
+				</Button>
 			</form>
 		</Layout>
 	);

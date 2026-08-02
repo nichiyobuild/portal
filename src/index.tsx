@@ -1,30 +1,39 @@
 import { Hono } from "hono";
 import type { FC } from "hono/jsx";
+import z from "zod";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
+import { ContactError } from "#/components/pages/contact/contact-error";
+import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
 import { Legal } from "#/components/pages/legal";
+import { DisclosureError } from "#/components/pages/legal/disclosure-error";
 import { LegalDisclosureDocument } from "#/components/pages/legal/legal-disclosure-document";
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
+import {
+	CONTACT_CATEGORY_LABELS,
+	CONTACT_CATEGORY_VALUES,
+	CONTACT_ERROR_PATH,
+	CONTACT_SUCCESS_PATH,
+} from "#/constants/contact";
 import type { PagePath } from "#/constants/pages";
-import { INDEXABLE_PATHS, LEGAL_DISCLOSURE_PATH } from "#/constants/pages";
+import {
+	CONTACT_PAGE,
+	INDEXABLE_PATHS,
+	LEGAL_DISCLOSURE_PATH,
+} from "#/constants/pages";
 import {
 	ADSENSE_PUBLISHER_ID,
+	SITE_DOMAIN,
 	SITE_ORIGIN,
+	TURNSTILE_ACTION_CONTACT,
 	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
 } from "#/constants/site";
 import { verifyTurnstile } from "#/lib/turnstile";
-import { DisclosureError } from "./components/pages/legal/disclosure-error";
 
-type Bindings = {
-	TURNSTILE_SECRET_KEY: string;
-	LEGAL_REPRESENTATIVE_NAME: string;
-	LEGAL_PHONE_NUMBER: string;
-};
-
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 /**
  * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
@@ -44,6 +53,10 @@ for (const path of Object.keys(routes) as PagePath[]) {
 	const Component = routes[path];
 	app.get(path, (c) => c.html(<Component />));
 }
+
+app.notFound((c) => {
+	return c.html(<NotFound />, 404);
+});
 
 /**
  * 特商法で省略した事項を含む全文を、電磁的記録として提供する。
@@ -86,8 +99,71 @@ app.post(LEGAL_DISCLOSURE_PATH, async (c) => {
 	);
 });
 
-app.notFound((c) => {
-	return c.html(<NotFound />, 404);
+const contactSchema = z.object({
+	category: z.enum(CONTACT_CATEGORY_VALUES),
+	name: z.string().min(1).max(255),
+	email: z.email(),
+	message: z.string().min(1).max(10000),
+	agree: z.literal("on"),
+});
+
+/**
+ * TODO: 入力エラーと送信障害を区別し、入力値を保持したままフォームに戻すこと。
+ * 現状はどちらも /contact/error へのリダイレクトで、入力内容が失われる。
+ * TODO: 受信内容を D1 に保存すること。メール送信に失敗すると問い合わせが消える。
+ */
+app.post(CONTACT_PAGE.path, async (c) => {
+	try {
+		const body = await c.req.formData();
+
+		const verified = await verifyTurnstile({
+			secretKey: c.env.TURNSTILE_SECRET_KEY,
+			token: String(body.get("cf-turnstile-response") ?? ""),
+			expectedAction: TURNSTILE_ACTION_CONTACT,
+			remoteIp: c.req.header("CF-Connecting-IP"),
+		});
+		if (!verified) {
+			return c.redirect(CONTACT_ERROR_PATH);
+		}
+
+		const parsed = contactSchema.parse({
+			category: body.get("category"),
+			name: body.get("name"),
+			email: body.get("email"),
+			message: body.get("message"),
+			agree: body.get("agree"),
+		});
+
+		await c.env.EMAIL.send({
+			to: c.env.CONTACT_EMAIL_TO,
+			from: c.env.CONTACT_EMAIL_FROM,
+			// 運営者がそのまま返信できるようにする。
+			replyTo: parsed.email,
+			subject: `[${CONTACT_CATEGORY_LABELS[parsed.category]}] ${SITE_DOMAIN}からお問い合わせがありました`,
+			text: [
+				`種類: ${CONTACT_CATEGORY_LABELS[parsed.category]}`,
+				`お名前: ${parsed.name}`,
+				`メールアドレス: ${parsed.email}`,
+				"",
+				"お問い合わせ内容:",
+				parsed.message,
+				"",
+			].join("\n"),
+		});
+
+		return c.redirect(CONTACT_SUCCESS_PATH);
+	} catch (error) {
+		console.error(error);
+		return c.redirect(CONTACT_ERROR_PATH);
+	}
+});
+
+app.get(CONTACT_SUCCESS_PATH, (c) => {
+	return c.html(<ContactSuccess />);
+});
+
+app.get(CONTACT_ERROR_PATH, (c) => {
+	return c.html(<ContactError />);
 });
 
 // noindex のページも Disallow しない。クロールできないと meta robots を

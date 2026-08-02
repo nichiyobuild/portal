@@ -23,8 +23,12 @@ export const TURNSTILE_SITE_KEY = import.meta.env.DEV
 	? "1x00000000000000000000AA"
 	: "0x4AAAAAAEDvz-tgUTWoDj8R";
 
-/** Turnstile の data-action。トークンの使い回しを防ぐため検証時に突き合わせる。 */
+/**
+ * Turnstile の data-action。トークンの使い回しを防ぐため検証時に突き合わせる。
+ * ウィジェットはサイト単位で1つなので、この値がフォームの区別になる。
+ */
 export const TURNSTILE_ACTION_LEGAL_DISCLOSURE = "legal-disclosure";
+export const TURNSTILE_ACTION_CONTACT = "contact";
 
 export const COMPANY_NAME = "Cloudensis合同会社";
 
