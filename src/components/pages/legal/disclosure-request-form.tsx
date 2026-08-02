@@ -1,0 +1,41 @@
+import { Button } from "#/components/ui/button";
+import { LEGAL_DISCLOSURE_PATH } from "#/constants/pages";
+import {
+	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
+	TURNSTILE_SITE_KEY,
+} from "#/constants/site";
+
+/**
+ * 省略事項を含む全文をダウンロードさせるフォーム。
+ *
+ * GET を受け付けず POST のみにしているのは、クローラーに到達させないため。
+ * ここが静的URLだと、電話番号と代表者名が検索インデックスに載ってしまう。
+ */
+export function DisclosureRequestForm() {
+	return (
+		<form
+			action={LEGAL_DISCLOSURE_PATH}
+			class="not-prose my-6 rounded-lg border border-slate-700 bg-slate-900/40 p-5"
+			method="post"
+		>
+			<p class="text-slate-300 text-sm">
+				下のボタンから、省略した事項を含む本表記の全文をファイルとして取得できます。
+			</p>
+			<div
+				class="cf-turnstile mt-4"
+				data-action={TURNSTILE_ACTION_LEGAL_DISCLOSURE}
+				data-sitekey={TURNSTILE_SITE_KEY}
+				data-theme="dark"
+			/>
+			<Button class="mt-4" type="submit">
+				全文をダウンロード
+			</Button>
+			{/* このページでしか使わないので、Layout の head ではなくここで読み込む */}
+			<script
+				async
+				defer
+				src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+			/>
+		</form>
+	);
+}

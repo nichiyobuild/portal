@@ -4,14 +4,27 @@ import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
 import { Home } from "#/components/pages/home";
 import { Legal } from "#/components/pages/legal";
+import { LegalDisclosureDocument } from "#/components/pages/legal/legal-disclosure-document";
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
 import type { PagePath } from "#/constants/pages";
-import { INDEXABLE_PATHS } from "#/constants/pages";
-import { ADSENSE_PUBLISHER_ID, SITE_ORIGIN } from "#/constants/site";
+import { INDEXABLE_PATHS, LEGAL_DISCLOSURE_PATH } from "#/constants/pages";
+import {
+	ADSENSE_PUBLISHER_ID,
+	SITE_ORIGIN,
+	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
+} from "#/constants/site";
+import { verifyTurnstile } from "#/lib/turnstile";
+import { DisclosureError } from "./components/pages/legal/disclosure-error";
 
-const app = new Hono();
+type Bindings = {
+	TURNSTILE_SECRET_KEY: string;
+	LEGAL_REPRESENTATIVE_NAME: string;
+	LEGAL_PHONE_NUMBER: string;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 /**
  * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
@@ -31,6 +44,47 @@ for (const path of Object.keys(routes) as PagePath[]) {
 	const Component = routes[path];
 	app.get(path, (c) => c.html(<Component />));
 }
+
+/**
+ * 特商法で省略した事項を含む全文を、電磁的記録として提供する。
+ *
+ * GET を実装していないのは意図的。クローラーが到達できる経路を作らないため、
+ * Turnstile 検証を通した POST でのみ生成する。
+ */
+app.post(LEGAL_DISCLOSURE_PATH, async (c) => {
+	const form = await c.req.formData();
+	const verified = await verifyTurnstile({
+		secretKey: c.env.TURNSTILE_SECRET_KEY,
+		token: String(form.get("cf-turnstile-response") ?? ""),
+		expectedAction: TURNSTILE_ACTION_LEGAL_DISCLOSURE,
+		remoteIp: c.req.header("CF-Connecting-IP"),
+	});
+
+	if (!verified) {
+		return c.html(<DisclosureError />, 400);
+	}
+
+	const providedAt = new Date().toLocaleDateString("ja-JP", {
+		timeZone: "Asia/Tokyo",
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	});
+
+	return c.html(
+		<LegalDisclosureDocument
+			phoneNumber={c.env.LEGAL_PHONE_NUMBER}
+			providedAt={providedAt}
+			representativeName={c.env.LEGAL_REPRESENTATIVE_NAME}
+		/>,
+		200,
+		{
+			"Content-Disposition": 'attachment; filename="legal.html"',
+			// 開示した内容をプロキシやブラウザに残さない。
+			"Cache-Control": "no-store",
+		},
+	);
+});
 
 app.notFound((c) => {
 	return c.html(<NotFound />, 404);

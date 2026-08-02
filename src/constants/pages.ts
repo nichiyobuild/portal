@@ -63,5 +63,11 @@ export const PAGES = [
 
 export type PagePath = (typeof PAGES)[number]["path"];
 
+/**
+ * 特商法の省略事項を含む全文をダウンロードするエンドポイント。
+ * POST のみを受け付けるため PAGES には含めない（sitemap にもフッターにも出さない）。
+ */
+export const LEGAL_DISCLOSURE_PATH = "/legal/disclosure";
+
 /** sitemap.xml に載せるパス。 */
 export const INDEXABLE_PATHS: string[] = PAGES.map((page) => page.path);
