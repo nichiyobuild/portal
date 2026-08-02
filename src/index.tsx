@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { csrf } from "hono/csrf";
 import type { FC } from "hono/jsx";
 import z from "zod";
 import { About } from "#/components/pages/about";
@@ -21,7 +22,7 @@ import { Terms } from "#/components/pages/terms";
 import type { PagePath } from "#/constants/pages";
 import {
 	CONTACT_PAGE,
-	INDEXABLE_PATHS,
+	INDEXED_PAGES,
 	LEGAL_DISCLOSURE_PATH,
 } from "#/constants/pages";
 import {
@@ -35,22 +36,25 @@ import { verifyTurnstile } from "#/lib/turnstile";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
+app.use(csrf());
+
 /**
  * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
  * 対応するページを登録する。Record の型がキーの過不足を検出するため、
  * PAGES にパスを追加してここへの登録を忘れると型エラーになる。
  */
-const routes: Record<PagePath, FC> = {
+const pageRoutes: Record<PagePath, FC> = {
 	"/": Home,
 	"/about": About,
 	"/terms": Terms,
 	"/privacy": Privacy,
 	"/legal": Legal,
 	"/contact": Contact,
+	"/contact/success": ContactSuccess,
 };
 
-for (const path of Object.keys(routes) as PagePath[]) {
-	const Component = routes[path];
+for (const path of Object.keys(pageRoutes) as PagePath[]) {
+	const Component = pageRoutes[path];
 	app.get(path, (c) => c.html(<Component />));
 }
 
@@ -204,7 +208,6 @@ app.post(CONTACT_PAGE.path, async (c) => {
 				"",
 				"お問い合わせ内容:",
 				parsed.data.message,
-				"",
 			].join("\n"),
 		});
 
@@ -223,10 +226,6 @@ app.post(CONTACT_PAGE.path, async (c) => {
 	}
 });
 
-app.get(CONTACT_SUCCESS_PATH, (c) => {
-	return c.html(<ContactSuccess />);
-});
-
 // noindex のページも Disallow しない。クロールできないと meta robots を
 // 読めず、noindex が伝わらないため。
 app.get("/robots.txt", (c) => {
@@ -242,8 +241,8 @@ app.get("/robots.txt", (c) => {
 });
 
 app.get("/sitemap.xml", (c) => {
-	const urls = INDEXABLE_PATHS.map(
-		(path) => `\t<url>\n\t\t<loc>${SITE_ORIGIN}${path}</loc>\n\t</url>`,
+	const urls = INDEXED_PAGES.map(
+		(page) => `\t<url>\n\t\t<loc>${SITE_ORIGIN}${page.path}</loc>\n\t</url>`,
 	).join("\n");
 	const xml = [
 		'<?xml version="1.0" encoding="UTF-8"?>',

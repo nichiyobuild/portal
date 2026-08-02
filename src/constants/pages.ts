@@ -2,6 +2,7 @@ export type PageMeta = {
 	path: string;
 	title: string | null;
 	description: string;
+	index: boolean;
 };
 
 export const HOME_PAGE = {
@@ -9,6 +10,7 @@ export const HOME_PAGE = {
 	title: null,
 	description:
 		"ブラウザですぐ遊べるゲームを公開しています。インストールも会員登録も不要、PCでもスマホでもその場で遊べます。",
+	index: true,
 } as const satisfies PageMeta;
 
 export const ABOUT_PAGE = {
@@ -16,12 +18,14 @@ export const ABOUT_PAGE = {
 	title: "このサイトについて",
 	description:
 		"日曜Buildの運営方針、対象ユーザー、動作環境について説明しています。",
+	index: true,
 } as const satisfies PageMeta;
 
 export const TERMS_PAGE = {
 	path: "/terms",
 	title: "利用規約",
 	description: "nichiyobuild.comおよび公開ゲームの利用規約です。",
+	index: true,
 } as const satisfies PageMeta;
 
 export const PRIVACY_PAGE = {
@@ -29,6 +33,7 @@ export const PRIVACY_PAGE = {
 	title: "プライバシーポリシー",
 	description:
 		"nichiyobuild.comにおける個人情報の取り扱いについて説明しています。",
+	index: true,
 } as const satisfies PageMeta;
 
 export const LEGAL_PAGE = {
@@ -36,6 +41,7 @@ export const LEGAL_PAGE = {
 	title: "特定商取引法に基づく表記",
 	description:
 		"特定商取引法第11条に基づく、当社の有料コンテンツ販売に関する表示です。",
+	index: true,
 } as const satisfies PageMeta;
 
 export const CONTACT_PAGE = {
@@ -43,6 +49,14 @@ export const CONTACT_PAGE = {
 	title: "お問い合わせ",
 	description:
 		"nichiyobuild.comおよび公開ゲームに関するお問い合わせはこちらから。",
+	index: true,
+} as const satisfies PageMeta;
+
+export const CONTACT_SUCCESS_PAGE = {
+	path: "/contact/success",
+	title: "送信が完了しました",
+	description: "お問い合わせの送信が完了しました。",
+	index: false,
 } as const satisfies PageMeta;
 
 /**
@@ -59,15 +73,23 @@ export const PAGES = [
 	PRIVACY_PAGE,
 	LEGAL_PAGE,
 	CONTACT_PAGE,
+	CONTACT_SUCCESS_PAGE,
 ] as const;
 
 export type PagePath = (typeof PAGES)[number]["path"];
+
+export const INDEXED_PAGES = PAGES.filter((page) => page.index);
+
+export const FOOTER_LINK_PAGES = [
+	ABOUT_PAGE,
+	TERMS_PAGE,
+	PRIVACY_PAGE,
+	LEGAL_PAGE,
+	CONTACT_PAGE,
+];
 
 /**
  * 特商法の省略事項を含む全文をダウンロードするエンドポイント。
  * POST のみを受け付けるため PAGES には含めない（sitemap にもフッターにも出さない）。
  */
 export const LEGAL_DISCLOSURE_PATH = "/legal/disclosure";
-
-/** sitemap.xml に載せるパス。 */
-export const INDEXABLE_PATHS: string[] = PAGES.map((page) => page.path);
