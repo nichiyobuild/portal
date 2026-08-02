@@ -25,7 +25,7 @@ export function Home() {
 					<h2 class="font-bold text-2xl text-slate-50">公開中のゲーム</h2>
 					<div class="mt-6 grid gap-4 sm:grid-cols-2">
 						{games.map((game) => (
-							<GameCard game={game} key={game.url} />
+							<GameCard game={game} />
 						))}
 					</div>
 					<p class="mt-6 text-slate-400 text-sm">

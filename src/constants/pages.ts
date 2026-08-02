@@ -80,13 +80,13 @@ export type PagePath = (typeof PAGES)[number]["path"];
 
 export const INDEXED_PAGES = PAGES.filter((page) => page.index);
 
-export const FOOTER_LINK_PAGES = [
+export const NAVIGATION_LINKS = [
 	ABOUT_PAGE,
 	TERMS_PAGE,
 	PRIVACY_PAGE,
 	LEGAL_PAGE,
 	CONTACT_PAGE,
-];
+].map(({ path, title }) => ({ path, title }));
 
 /**
  * 特商法の省略事項を含む全文をダウンロードするエンドポイント。

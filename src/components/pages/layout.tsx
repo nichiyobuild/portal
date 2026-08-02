@@ -1,6 +1,6 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
-import { FOOTER_LINK_PAGES, HOME_PAGE } from "#/constants/pages";
+import { HOME_PAGE, NAVIGATION_LINKS } from "#/constants/pages";
 import { SITE_NAME, SITE_ORIGIN } from "#/constants/site";
 
 type Props = {
@@ -75,9 +75,9 @@ function Header() {
 function Footer() {
 	return (
 		<footer class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-4 py-8 text-sm sm:px-12">
-			{FOOTER_LINK_PAGES.map((page) => (
-				<a class="hover:underline" href={page.path}>
-					{page.title}
+			{NAVIGATION_LINKS.map((link) => (
+				<a class="hover:underline" href={link.path}>
+					{link.title}
 				</a>
 			))}
 		</footer>

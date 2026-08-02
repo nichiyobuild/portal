@@ -90,11 +90,7 @@ export function Contact({ values = EMPTY_VALUES, errors = {} }: Props) {
 					>
 						<option value="">選択してください</option>
 						{CONTACT_CATEGORY_VALUES.map((value) => (
-							<option
-								key={value}
-								selected={values.category === value}
-								value={value}
-							>
+							<option selected={values.category === value} value={value}>
 								{CONTACT_CATEGORY_LABELS[value]}
 							</option>
 						))}

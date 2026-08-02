@@ -24,6 +24,7 @@ import {
 	CONTACT_PAGE,
 	INDEXED_PAGES,
 	LEGAL_DISCLOSURE_PATH,
+	NAVIGATION_LINKS,
 } from "#/constants/pages";
 import {
 	ADSENSE_PUBLISHER_ID,
@@ -37,6 +38,9 @@ import { verifyTurnstile } from "#/lib/turnstile";
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 app.use(csrf());
+
+// 別のworkerから利用規約などのリンクを取得するためのapi
+app.get("/api/navigation-links", (c) => c.json(NAVIGATION_LINKS));
 
 /**
  * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
