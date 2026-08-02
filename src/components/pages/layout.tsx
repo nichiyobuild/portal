@@ -47,7 +47,7 @@ export function Layout({
 						<meta content="summary" name="twitter:card" />
 					</>
 				)}
-				<Link href="/favicon.svg" rel="icon" />
+				<link href="/favicon.svg" rel="icon" />
 				<Link href="/src/style.css" rel="stylesheet" />
 				<ViteClient />
 			</head>
