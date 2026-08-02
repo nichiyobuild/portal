@@ -4,14 +4,14 @@ import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
 import { Turnstile } from "#/components/ui/turnstile";
+import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
+import { SITE_DOMAIN, TURNSTILE_ACTION_CONTACT } from "#/constants/site";
 import {
 	CONTACT_CATEGORY_LABELS,
 	CONTACT_CATEGORY_VALUES,
 	type ContactFormErrors,
 	type ContactFormValues,
-} from "#/constants/contact";
-import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
-import { SITE_DOMAIN, TURNSTILE_ACTION_CONTACT } from "#/constants/site";
+} from "./const";
 
 type Props = {
 	/** 送信に失敗したときに入力内容を戻すための値。初回表示では空。 */

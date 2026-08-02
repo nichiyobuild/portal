@@ -3,6 +3,13 @@ import type { FC } from "hono/jsx";
 import z from "zod";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
+import {
+	CONTACT_CATEGORY_LABELS,
+	CONTACT_CATEGORY_VALUES,
+	CONTACT_SUCCESS_PATH,
+	type ContactFormErrors,
+	type ContactFormValues,
+} from "#/components/pages/contact/const";
 import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
 import { Legal } from "#/components/pages/legal";
@@ -11,13 +18,6 @@ import { LegalDisclosureDocument } from "#/components/pages/legal/legal-disclosu
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
-import {
-	CONTACT_CATEGORY_LABELS,
-	CONTACT_CATEGORY_VALUES,
-	CONTACT_SUCCESS_PATH,
-	type ContactFormErrors,
-	type ContactFormValues,
-} from "#/constants/contact";
 import type { PagePath } from "#/constants/pages";
 import {
 	CONTACT_PAGE,
