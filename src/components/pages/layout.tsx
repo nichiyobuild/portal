@@ -34,7 +34,7 @@ export function Layout({
 				<ViteClient />
 				<meta content="width=device-width, initial-scale=1" name="viewport" />
 				<Link href="/src/style.css" rel="stylesheet" />
-				<link href="/favicon.ico" rel="icon" />
+				<link href="/favicon.svg" rel="icon" />
 				<title>{pageTitle}</title>
 				<meta content={description} name="description" />
 				{noindex && <meta name="robots" content="noindex, noarchive" />}
