@@ -38,7 +38,14 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 app.use(csrf());
 
 // 別のworkerから利用規約などのリンクを取得するためのapi
-app.get("/api/navigation-links", (c) => c.json(NAVIGATION_LINKS));
+app.get("/api/navigation-links", (c) =>
+	c.json(
+		NAVIGATION_LINKS.map(({ title, path }) => ({
+			title,
+			url: `${SITE_URL}${path}`,
+		})),
+	),
+);
 
 /**
  * PAGES（フッター・sitemapの元データ、src/constants/pages.ts）にあるパスへ、
