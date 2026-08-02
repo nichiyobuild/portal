@@ -5,7 +5,8 @@ import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
 import { Turnstile } from "#/components/ui/turnstile";
 import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
-import { SITE_DOMAIN, TURNSTILE_ACTION_CONTACT } from "#/constants/site";
+import { SITE_DOMAIN } from "#/constants/site";
+import { TURNSTILE_ACTION_CONTACT } from "#/constants/turnstile";
 import {
 	CONTACT_CATEGORY_LABELS,
 	CONTACT_CATEGORY_VALUES,

@@ -1,4 +1,4 @@
-import { TURNSTILE_SITE_KEY } from "#/constants/site";
+import { TURNSTILE_SITE_KEY } from "#/constants/turnstile";
 import { cn } from "#/lib/utils";
 
 type Props = {

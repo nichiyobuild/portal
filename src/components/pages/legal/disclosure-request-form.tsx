@@ -1,7 +1,7 @@
 import { Button } from "#/components/ui/button";
 import { Turnstile } from "#/components/ui/turnstile";
 import { LEGAL_DISCLOSURE_PATH } from "#/constants/pages";
-import { TURNSTILE_ACTION_LEGAL_DISCLOSURE } from "#/constants/site";
+import { TURNSTILE_ACTION_LEGAL_DISCLOSURE } from "#/constants/turnstile";
 
 /**
  * 省略事項を含む全文をダウンロードさせるフォーム。

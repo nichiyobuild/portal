@@ -26,13 +26,11 @@ import {
 	LEGAL_DISCLOSURE_PATH,
 	NAVIGATION_LINKS,
 } from "#/constants/pages";
+import { ADSENSE_PUBLISHER_ID, SITE_DOMAIN, SITE_URL } from "#/constants/site";
 import {
-	ADSENSE_PUBLISHER_ID,
-	SITE_DOMAIN,
-	SITE_ORIGIN,
 	TURNSTILE_ACTION_CONTACT,
 	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
-} from "#/constants/site";
+} from "#/constants/turnstile";
 import { verifyTurnstile } from "#/lib/turnstile";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
@@ -236,7 +234,7 @@ app.get("/robots.txt", (c) =>
 			"User-agent: *",
 			"Allow: /",
 			"",
-			`Sitemap: ${SITE_ORIGIN}/sitemap.xml`,
+			`Sitemap: ${SITE_URL}/sitemap.xml`,
 			"",
 		].join("\n"),
 	),
@@ -244,7 +242,7 @@ app.get("/robots.txt", (c) =>
 
 app.get("/sitemap.xml", (c) => {
 	const urls = INDEXED_PAGES.map(
-		(page) => `\t<url>\n\t\t<loc>${SITE_ORIGIN}${page.path}</loc>\n\t</url>`,
+		(page) => `\t<url>\n\t\t<loc>${SITE_URL}${page.path}</loc>\n\t</url>`,
 	).join("\n");
 	const xml = [
 		'<?xml version="1.0" encoding="UTF-8"?>',

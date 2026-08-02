@@ -1,7 +1,7 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
 import { HOME_PAGE, NAVIGATION_LINKS } from "#/constants/pages";
-import { SITE_NAME, SITE_ORIGIN } from "#/constants/site";
+import { SITE_NAME, SITE_URL } from "#/constants/site";
 
 type Props = {
 	children: Child;
@@ -25,7 +25,7 @@ export function Layout({
 	noindex = false,
 }: Props) {
 	const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-	const canonicalUrl = path ? `${SITE_ORIGIN}${path}` : undefined;
+	const canonicalUrl = path ? `${SITE_URL}${path}` : undefined;
 
 	return (
 		<html lang="ja">
