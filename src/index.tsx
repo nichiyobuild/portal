@@ -3,7 +3,6 @@ import type { FC } from "hono/jsx";
 import z from "zod";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
-import { ContactError } from "#/components/pages/contact/contact-error";
 import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
 import { Legal } from "#/components/pages/legal";
@@ -15,8 +14,9 @@ import { Terms } from "#/components/pages/terms";
 import {
 	CONTACT_CATEGORY_LABELS,
 	CONTACT_CATEGORY_VALUES,
-	CONTACT_ERROR_PATH,
 	CONTACT_SUCCESS_PATH,
+	type ContactFormErrors,
+	type ContactFormValues,
 } from "#/constants/contact";
 import type { PagePath } from "#/constants/pages";
 import {
@@ -99,22 +99,79 @@ app.post(LEGAL_DISCLOSURE_PATH, async (c) => {
 	);
 });
 
+/**
+ * 検証対象は ContactFormValues に正規化済みの値。
+ * 生の FormData をそのまま渡すと、項目が欠落したリクエストで型エラーになり
+ * zod の既定メッセージ（英語）が利用者に出てしまう。
+ */
 const contactSchema = z.object({
-	category: z.enum(CONTACT_CATEGORY_VALUES),
-	name: z.string().min(1).max(255),
-	email: z.email(),
-	message: z.string().min(1).max(10000),
-	agree: z.literal("on"),
+	category: z.enum(CONTACT_CATEGORY_VALUES, {
+		error: "お問い合わせの種類を選択してください。",
+	}),
+	name: z
+		.string()
+		.min(1, "お名前を入力してください。")
+		.max(255, "お名前は255文字以内で入力してください。"),
+	email: z.email("メールアドレスを正しく入力してください。"),
+	message: z
+		.string()
+		.min(1, "お問い合わせ内容を入力してください。")
+		.max(10000, "お問い合わせ内容は10000文字以内で入力してください。"),
+	agree: z.literal(true, {
+		error: "プライバシーポリシーへの同意が必要です。",
+	}),
 });
 
+/** 最初に見つかったエラーだけを項目ごとに拾う。同じ項目に複数出しても読みにくいため。 */
+function toFieldErrors(error: z.ZodError): ContactFormErrors {
+	const errors: ContactFormErrors = {};
+	for (const issue of error.issues) {
+		const key = issue.path[0];
+		if (typeof key === "string" && !(key in errors)) {
+			errors[key as keyof ContactFormValues] = issue.message;
+		}
+	}
+	return errors;
+}
+
 /**
- * TODO: 入力エラーと送信障害を区別し、入力値を保持したままフォームに戻すこと。
- * 現状はどちらも /contact/error へのリダイレクトで、入力内容が失われる。
+ * 送信に失敗したときはリダイレクトせずフォームを描画し直す。
+ * リダイレクトすると入力内容が失われ、長文を書いた利用者が打ち直しになるため。
+ * 成功時だけは PRG にして、再読み込みでの二重送信を防ぐ。
+ *
  * TODO: 受信内容を D1 に保存すること。メール送信に失敗すると問い合わせが消える。
  */
 app.post(CONTACT_PAGE.path, async (c) => {
+	let values: ContactFormValues = {
+		category: "",
+		name: "",
+		email: "",
+		message: "",
+		agree: false,
+	};
+
 	try {
 		const body = await c.req.formData();
+		values = {
+			category: String(body.get("category") ?? ""),
+			name: String(body.get("name") ?? ""),
+			email: String(body.get("email") ?? ""),
+			message: String(body.get("message") ?? ""),
+			agree: body.get("agree") === "on",
+		};
+
+		/**
+		 * Turnstile より先に入力を検証する。トークンは5分で失効するので、
+		 * 入力ミスと失効が重なったときに認証エラーだけを見せて往復させないため。
+		 * 検証は副作用がなく、ここで弾いてもメールは送られない。
+		 */
+		const parsed = contactSchema.safeParse(values);
+		if (!parsed.success) {
+			return c.html(
+				<Contact errors={toFieldErrors(parsed.error)} values={values} />,
+				400,
+			);
+		}
 
 		const verified = await verifyTurnstile({
 			secretKey: c.env.TURNSTILE_SECRET_KEY,
@@ -123,30 +180,30 @@ app.post(CONTACT_PAGE.path, async (c) => {
 			remoteIp: c.req.header("CF-Connecting-IP"),
 		});
 		if (!verified) {
-			return c.redirect(CONTACT_ERROR_PATH);
+			return c.html(
+				<Contact
+					errors={{
+						form: "認証の有効期限が切れたか、確認に失敗しました。入力内容はそのままですので、もう一度送信してください。",
+					}}
+					values={values}
+				/>,
+				400,
+			);
 		}
-
-		const parsed = contactSchema.parse({
-			category: body.get("category"),
-			name: body.get("name"),
-			email: body.get("email"),
-			message: body.get("message"),
-			agree: body.get("agree"),
-		});
 
 		await c.env.EMAIL.send({
 			to: c.env.CONTACT_EMAIL_TO,
 			from: c.env.CONTACT_EMAIL_FROM,
 			// 運営者がそのまま返信できるようにする。
-			replyTo: parsed.email,
-			subject: `[${CONTACT_CATEGORY_LABELS[parsed.category]}] ${SITE_DOMAIN}からお問い合わせがありました`,
+			replyTo: parsed.data.email,
+			subject: `[${CONTACT_CATEGORY_LABELS[parsed.data.category]}] ${SITE_DOMAIN}からお問い合わせがありました`,
 			text: [
-				`種類: ${CONTACT_CATEGORY_LABELS[parsed.category]}`,
-				`お名前: ${parsed.name}`,
-				`メールアドレス: ${parsed.email}`,
+				`種類: ${CONTACT_CATEGORY_LABELS[parsed.data.category]}`,
+				`お名前: ${parsed.data.name}`,
+				`メールアドレス: ${parsed.data.email}`,
 				"",
 				"お問い合わせ内容:",
-				parsed.message,
+				parsed.data.message,
 				"",
 			].join("\n"),
 		});
@@ -154,16 +211,20 @@ app.post(CONTACT_PAGE.path, async (c) => {
 		return c.redirect(CONTACT_SUCCESS_PATH);
 	} catch (error) {
 		console.error(error);
-		return c.redirect(CONTACT_ERROR_PATH);
+		return c.html(
+			<Contact
+				errors={{
+					form: "送信中に問題が発生しました。入力内容はそのままですので、しばらく時間をおいてからもう一度お試しください。",
+				}}
+				values={values}
+			/>,
+			500,
+		);
 	}
 });
 
 app.get(CONTACT_SUCCESS_PATH, (c) => {
 	return c.html(<ContactSuccess />);
-});
-
-app.get(CONTACT_ERROR_PATH, (c) => {
-	return c.html(<ContactError />);
 });
 
 // noindex のページも Disallow しない。クロールできないと meta robots を

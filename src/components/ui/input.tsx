@@ -19,8 +19,20 @@ export function Select({ class: className, ...props }: SelectProps) {
 	return <select class={cn(fieldClass, className)} {...props} />;
 }
 
-export function Textarea({ class: className, ...props }: TextareaProps) {
-	return <textarea class={cn(fieldClass, className)} {...props} />;
+/**
+ * textarea の初期値は value 属性ではなく要素の中身で表すため、
+ * children をそのまま流し込む。送信エラー時の再表示で入力値を戻すのに使う。
+ */
+export function Textarea({
+	children,
+	class: className,
+	...props
+}: TextareaProps) {
+	return (
+		<textarea class={cn(fieldClass, className)} {...props}>
+			{children}
+		</textarea>
+	);
 }
 
 export function Checkbox({

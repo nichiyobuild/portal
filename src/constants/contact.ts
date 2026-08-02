@@ -28,6 +28,22 @@ export const CONTACT_CATEGORY_LABELS: Record<ContactCategory, string> = {
 	other: "その他",
 };
 
-/** 送信完了・送信失敗の各ページ。POST 後のリダイレクト先。 */
+/** 送信完了ページ。成功時のみリダイレクトする（PRG で再送信を防ぐため）。 */
 export const CONTACT_SUCCESS_PATH = "/contact/success";
-export const CONTACT_ERROR_PATH = "/contact/error";
+
+/** 送信に失敗したときにフォームへ戻す入力値。 */
+export type ContactFormValues = {
+	category: string;
+	name: string;
+	email: string;
+	message: string;
+	agree: boolean;
+};
+
+/**
+ * 項目ごとのエラーメッセージ。
+ * form はどの項目にも紐づかないエラー（認証失敗・送信障害など）に使う。
+ */
+export type ContactFormErrors = {
+	[K in keyof ContactFormValues]?: string;
+} & { form?: string };
