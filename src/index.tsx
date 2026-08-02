@@ -62,9 +62,7 @@ for (const path of Object.keys(pageRoutes) as PagePath[]) {
 	app.get(path, (c) => c.html(<Component />));
 }
 
-app.notFound((c) => {
-	return c.html(<NotFound />, 404);
-});
+app.notFound((c) => c.html(<NotFound />, 404));
 
 /**
  * 特商法で省略した事項を含む全文を、電磁的記録として提供する。
@@ -232,8 +230,8 @@ app.post(CONTACT_PAGE.path, async (c) => {
 
 // noindex のページも Disallow しない。クロールできないと meta robots を
 // 読めず、noindex が伝わらないため。
-app.get("/robots.txt", (c) => {
-	return c.text(
+app.get("/robots.txt", (c) =>
+	c.text(
 		[
 			"User-agent: *",
 			"Allow: /",
@@ -241,8 +239,8 @@ app.get("/robots.txt", (c) => {
 			`Sitemap: ${SITE_ORIGIN}/sitemap.xml`,
 			"",
 		].join("\n"),
-	);
-});
+	),
+);
 
 app.get("/sitemap.xml", (c) => {
 	const urls = INDEXED_PAGES.map(
