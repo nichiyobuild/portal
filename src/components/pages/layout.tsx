@@ -31,10 +31,7 @@ export function Layout({
 		<html lang="ja">
 			<head>
 				<meta charset="utf-8" />
-				<ViteClient />
 				<meta content="width=device-width, initial-scale=1" name="viewport" />
-				<Link href="/src/style.css" rel="stylesheet" />
-				<link href="/favicon.svg" rel="icon" />
 				<title>{pageTitle}</title>
 				<meta content={description} name="description" />
 				{noindex && <meta name="robots" content="noindex, noarchive" />}
@@ -50,6 +47,9 @@ export function Layout({
 						<meta content="summary" name="twitter:card" />
 					</>
 				)}
+				<Link href="/favicon.svg" rel="icon" />
+				<Link href="/src/style.css" rel="stylesheet" />
+				<ViteClient />
 			</head>
 			<body class="bg-slate-950 text-slate-50">
 				<div class="flex min-h-svh flex-col">
