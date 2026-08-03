@@ -64,8 +64,8 @@ async function validateTurnstile({
 			return false;
 		}
 
-		// テスト環境ではaction,hostnameの検証をスキップ
-		if (import.meta.env.DEV) return true;
+		// 本番環境以外ではaction,hostnameの検証をスキップ
+		if (!import.meta.env.PROD) return true;
 
 		if (result.data.action !== expectedAction) {
 			console.warn("validateTurnstile action not match");
