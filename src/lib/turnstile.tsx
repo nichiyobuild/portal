@@ -60,7 +60,10 @@ async function validateTurnstile({
 
 		const result = verifyResponseSchema.safeParse(json);
 		if (!result.success) {
-			console.error("validateTurnstile response parse error", result.error);
+			console.error({
+				error: result.error,
+				message: "validateTurnstile response parse error",
+			});
 			return false;
 		}
 
@@ -68,11 +71,11 @@ async function validateTurnstile({
 		if (!import.meta.env.PROD) return true;
 
 		if (result.data.action !== expectedAction) {
-			console.warn("validateTurnstile action not match");
+			console.warn({ message: "validateTurnstile action not match" });
 			return false;
 		}
 		if (result.data.hostname !== expectedHostname) {
-			console.warn("validateTurnstile hostname not match");
+			console.warn({ message: "validateTurnstile hostname not match" });
 			return false;
 		}
 
@@ -83,13 +86,15 @@ async function validateTurnstile({
 			const ageMinutes = (now - challengeTime) / (1000 * 60);
 
 			if (ageMinutes > 4) {
-				console.warn(`Token is ${ageMinutes.toFixed(1)} minutes old`);
+				console.warn({
+					message: `Token is ${ageMinutes.toFixed(1)} minutes old`,
+				});
 			}
 		}
 
 		return true;
 	} catch (error) {
-		console.error("validateTurnstile action not match", error);
+		console.error({ error, message: "validateTurnstile unknown error" });
 		return false;
 	}
 }

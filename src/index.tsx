@@ -222,7 +222,7 @@ app.post(CONTACT_PAGE.path, async (c) => {
 
 		return c.redirect(CONTACT_SUCCESS_PATH);
 	} catch (error) {
-		console.error(error);
+		console.error({ error, message: "unknown error in post contact" });
 		return c.html(
 			<Contact
 				errors={{
