@@ -4,11 +4,7 @@ import { COMPANY_ADDRESS, COMPANY_NAME, SITE_DOMAIN } from "#/constants/site";
 
 export function Privacy() {
 	return (
-		<Layout
-			title={PRIVACY_PAGE.title}
-			description={PRIVACY_PAGE.description}
-			path={PRIVACY_PAGE.path}
-		>
+		<Layout metadata={PRIVACY_PAGE}>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>プライバシーポリシー</h1>
 				<p>

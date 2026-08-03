@@ -5,11 +5,7 @@ import { LegalTable } from "./legal-table";
 
 export function Legal() {
 	return (
-		<Layout
-			title={LEGAL_PAGE.title}
-			description={LEGAL_PAGE.description}
-			path={LEGAL_PAGE.path}
-		>
+		<Layout metadata={LEGAL_PAGE}>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>特定商取引法に基づく表記</h1>
 				<p>

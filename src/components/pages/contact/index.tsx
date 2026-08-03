@@ -42,11 +42,7 @@ export function Contact({ values = EMPTY_VALUES, errors = {} }: Props) {
 			.join(" ") || undefined;
 
 	return (
-		<Layout
-			title={CONTACT_PAGE.title}
-			description={CONTACT_PAGE.description}
-			path={CONTACT_PAGE.path}
-		>
+		<Layout metadata={CONTACT_PAGE}>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>お問い合わせ</h1>
 				<p>

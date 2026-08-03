@@ -44,6 +44,15 @@ export const LEGAL_PAGE = {
 	index: true,
 } as const satisfies PageMeta;
 
+export const LEGAL_DISCLOSURE_PATH = "/legal/disclosure";
+
+export const LEGAL_DISCLOSURE_ERROR_PAGE = {
+	path: LEGAL_DISCLOSURE_PATH,
+	title: "ダウンロードできませんでした",
+	description: LEGAL_PAGE.description,
+	index: false,
+} as const satisfies PageMeta;
+
 export const CONTACT_PAGE = {
 	path: "/contact",
 	title: "お問い合わせ",
@@ -56,6 +65,13 @@ export const CONTACT_SUCCESS_PAGE = {
 	path: "/contact/success",
 	title: "送信が完了しました",
 	description: "お問い合わせの送信が完了しました。",
+	index: false,
+} as const satisfies PageMeta;
+
+export const NOT_FOUND_PAGE = {
+	path: "/404",
+	title: "ページが見つかりません",
+	description: "ページが見つかりません",
 	index: false,
 } as const satisfies PageMeta;
 
@@ -87,9 +103,3 @@ export const NAVIGATION_LINKS = [
 	LEGAL_PAGE,
 	CONTACT_PAGE,
 ].map(({ path, title }) => ({ path, title }));
-
-/**
- * 特商法の省略事項を含む全文をダウンロードするエンドポイント。
- * POST のみを受け付けるため PAGES には含めない（sitemap にもフッターにも出さない）。
- */
-export const LEGAL_DISCLOSURE_PATH = "/legal/disclosure";

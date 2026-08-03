@@ -1,13 +1,9 @@
 import { Layout } from "#/components/pages/layout";
-import { LEGAL_PAGE } from "#/constants/pages";
+import { LEGAL_DISCLOSURE_ERROR_PAGE, LEGAL_PAGE } from "#/constants/pages";
 
 export function DisclosureError() {
 	return (
-		<Layout
-			title="ダウンロードできませんでした"
-			description={LEGAL_PAGE.description}
-			noindex
-		>
+		<Layout metadata={LEGAL_DISCLOSURE_ERROR_PAGE}>
 			<div class="py-16 lg:py-24">
 				<h1 class="font-bold text-3xl text-slate-50">
 					ダウンロードできませんでした

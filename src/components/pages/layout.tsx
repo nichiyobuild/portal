@@ -1,31 +1,20 @@
 import type { Child } from "hono/jsx";
 import { Link, ViteClient } from "vite-ssr-components/hono";
-import { HOME_PAGE, NAVIGATION_LINKS } from "#/constants/pages";
+import { HOME_PAGE, NAVIGATION_LINKS, type PageMeta } from "#/constants/pages";
 import { SITE_NAME, SITE_URL } from "#/constants/site";
 
 type Props = {
 	children: Child;
-	/** <title> の見出し部分。省略するとサイト名のみになる。 */
-	title?: string;
-	description: string;
-	/**
-	 * このページの正規パス（例: "/about"）。
-	 * canonical と OGP の og:url に使う。存在しないURLを指すことになる
-	 * noindex ページ（404など）では省略し、canonical/OGPごと出さない。
-	 */
-	path?: string;
-	noindex?: boolean;
+	metadata: PageMeta;
 };
 
-export function Layout({
-	children,
-	title,
-	description,
-	path,
-	noindex = false,
-}: Props) {
-	const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-	const canonicalUrl = path ? `${SITE_URL}${path}` : undefined;
+export function Layout({ children, metadata }: Props) {
+	const pageTitle = metadata.title
+		? `${metadata.title} | ${SITE_NAME}`
+		: SITE_NAME;
+	const canonicalUrl = metadata.path
+		? `${SITE_URL}${metadata.path}`
+		: undefined;
 
 	return (
 		<html lang="ja">
@@ -33,14 +22,14 @@ export function Layout({
 				<meta charset="utf-8" />
 				<meta content="width=device-width, initial-scale=1" name="viewport" />
 				<title>{pageTitle}</title>
-				<meta content={description} name="description" />
-				{noindex && <meta name="robots" content="noindex, noarchive" />}
+				<meta content={metadata.description} name="description" />
+				{!metadata.index && <meta name="robots" content="noindex, noarchive" />}
 				{canonicalUrl && <link href={canonicalUrl} rel="canonical" />}
 				{canonicalUrl && (
 					<>
 						<meta content="website" property="og:type" />
 						<meta content={pageTitle} property="og:title" />
-						<meta content={description} property="og:description" />
+						<meta content={metadata.description} property="og:description" />
 						<meta content={canonicalUrl} property="og:url" />
 						<meta content={SITE_NAME} property="og:site_name" />
 						<meta content="ja_JP" property="og:locale" />

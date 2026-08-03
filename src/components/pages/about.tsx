@@ -10,11 +10,7 @@ import { SITE_DOMAIN } from "#/constants/site";
 
 export function About() {
 	return (
-		<Layout
-			title={ABOUT_PAGE.title}
-			description={ABOUT_PAGE.description}
-			path={ABOUT_PAGE.path}
-		>
+		<Layout metadata={ABOUT_PAGE}>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>このサイトについて</h1>
 				<p>

@@ -1,17 +1,9 @@
 import { Layout } from "#/components/pages/layout";
-import { HOME_PAGE } from "#/constants/pages";
+import { CONTACT_SUCCESS_PAGE, HOME_PAGE } from "#/constants/pages";
 
-/**
- * POST 後のリダイレクト先。検索結果に出す意味がないので noindex にし、
- * canonical と OGP も出さない（path を渡さない）。
- */
 export function ContactSuccess() {
 	return (
-		<Layout
-			title="送信が完了しました"
-			description="お問い合わせの送信が完了しました。"
-			noindex
-		>
+		<Layout metadata={CONTACT_SUCCESS_PAGE}>
 			<article class="prose prose-slate prose-invert max-w-none py-8 prose-a:text-blue-300 lg:py-12">
 				<h1>送信が完了しました</h1>
 				<p>
