@@ -3,10 +3,13 @@ import { Layout } from "#/components/pages/layout";
 import { Button } from "#/components/ui/button";
 import { Checkbox, Input, Select, Textarea } from "#/components/ui/input";
 import { Label } from "#/components/ui/label";
-import { Turnstile } from "#/components/ui/turnstile";
 import { CONTACT_PAGE, PRIVACY_PAGE } from "#/constants/pages";
 import { SITE_DOMAIN } from "#/constants/site";
-import { TURNSTILE_ACTION_CONTACT } from "#/constants/turnstile";
+import {
+	TURNSTILE_ACTION_CONTACT,
+	TURNSTILE_SITE_KEY,
+} from "#/constants/turnstile";
+import { Turnstile } from "#/lib/turnstile";
 import {
 	CONTACT_CATEGORY_LABELS,
 	CONTACT_CATEGORY_VALUES,
@@ -184,6 +187,7 @@ export function Contact({ values = EMPTY_VALUES, errors = {} }: Props) {
 				</div>
 
 				<Turnstile
+					siteKey={TURNSTILE_SITE_KEY}
 					action={TURNSTILE_ACTION_CONTACT}
 					class="flex justify-center"
 				/>

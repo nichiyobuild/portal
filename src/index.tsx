@@ -31,7 +31,7 @@ import {
 	TURNSTILE_ACTION_CONTACT,
 	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
 } from "#/constants/turnstile";
-import { verifyTurnstile } from "#/lib/turnstile";
+import { validateTurnstileWithRetry } from "#/lib/turnstile";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
@@ -77,11 +77,12 @@ app.notFound((c) => c.html(<NotFound />, 404));
  */
 app.post(LEGAL_DISCLOSURE_PATH, async (c) => {
 	const form = await c.req.formData();
-	const verified = await verifyTurnstile({
+	const verified = await validateTurnstileWithRetry({
 		secretKey: c.env.TURNSTILE_SECRET_KEY,
 		token: String(form.get("cf-turnstile-response") ?? ""),
-		expectedAction: TURNSTILE_ACTION_LEGAL_DISCLOSURE,
 		remoteIp: c.req.header("CF-Connecting-IP"),
+		expectedAction: TURNSTILE_ACTION_LEGAL_DISCLOSURE,
+		expectedHostname: SITE_DOMAIN,
 	});
 
 	if (!verified) {
@@ -184,11 +185,12 @@ app.post(CONTACT_PAGE.path, async (c) => {
 			);
 		}
 
-		const verified = await verifyTurnstile({
+		const verified = await validateTurnstileWithRetry({
 			secretKey: c.env.TURNSTILE_SECRET_KEY,
 			token: String(body.get("cf-turnstile-response") ?? ""),
-			expectedAction: TURNSTILE_ACTION_CONTACT,
 			remoteIp: c.req.header("CF-Connecting-IP"),
+			expectedAction: TURNSTILE_ACTION_CONTACT,
+			expectedHostname: SITE_DOMAIN,
 		});
 		if (!verified) {
 			return c.html(

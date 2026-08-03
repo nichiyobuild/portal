@@ -1,7 +1,10 @@
 import { Button } from "#/components/ui/button";
-import { Turnstile } from "#/components/ui/turnstile";
 import { LEGAL_DISCLOSURE_PATH } from "#/constants/pages";
-import { TURNSTILE_ACTION_LEGAL_DISCLOSURE } from "#/constants/turnstile";
+import {
+	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
+	TURNSTILE_SITE_KEY,
+} from "#/constants/turnstile";
+import { Turnstile } from "#/lib/turnstile";
 
 /**
  * 省略事項を含む全文をダウンロードさせるフォーム。
@@ -19,7 +22,11 @@ export function DisclosureRequestForm() {
 			<p class="text-slate-300 text-sm">
 				下のボタンから、省略した事項を含む本表記の全文をファイルとして取得できます。
 			</p>
-			<Turnstile action={TURNSTILE_ACTION_LEGAL_DISCLOSURE} class="mt-4" />
+			<Turnstile
+				siteKey={TURNSTILE_SITE_KEY}
+				action={TURNSTILE_ACTION_LEGAL_DISCLOSURE}
+				class="mt-4"
+			/>
 			<Button class="mt-4" type="submit">
 				全文をダウンロード
 			</Button>
