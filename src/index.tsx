@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { csrf } from "hono/csrf";
 import type { FC } from "hono/jsx";
+import { languageDetector } from "hono/language";
 import z from "zod";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
@@ -37,6 +38,15 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 app.use(csrf());
 
+app.use(
+	languageDetector({
+		order: ["path", "header"],
+		supportedLanguages: ["ja"],
+		fallbackLanguage: "ja",
+		lookupFromHeaderKey: "Accept-Language",
+	}),
+);
+
 // 別のworkerから利用規約などのリンクを取得するためのapi
 app.get("/api/navigation-links", (c) =>
 	c.json(
@@ -64,7 +74,18 @@ const pageRoutes: Record<PagePath, FC> = {
 
 for (const path of Object.keys(pageRoutes) as PagePath[]) {
 	const Component = pageRoutes[path];
-	app.get(path, (c) => c.html(<Component />));
+	app.get(`/:lang${path}`, (c) => {
+		const lang = c.get("language");
+		return c.html(<Component lang={lang} />);
+	});
+
+	// lang指定なしの場合はリダイレクト
+	app.get(path, (c) => {
+		const lang = c.get("language");
+		const url = new URL(c.req.url);
+		url.pathname = `/${lang}${url.pathname}`;
+		return c.redirect(url.toString());
+	});
 }
 
 app.notFound((c) => c.html(<NotFound />, 404));
