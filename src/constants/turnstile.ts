@@ -14,5 +14,4 @@ export const TURNSTILE_SITE_KEY = import.meta.env.DEV
  * Turnstile の data-action。トークンの使い回しを防ぐため検証時に突き合わせる。
  * ウィジェットはサイト単位で1つなので、この値がフォームの区別になる。
  */
-export const TURNSTILE_ACTION_LEGAL_DISCLOSURE = "legal-disclosure";
 export const TURNSTILE_ACTION_CONTACT = "contact";

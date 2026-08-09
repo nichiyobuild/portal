@@ -14,9 +14,6 @@ import {
 } from "#/components/pages/contact/const";
 import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
-import { Legal } from "#/components/pages/legal";
-import { DisclosureError } from "#/components/pages/legal/disclosure-error";
-import { LegalDisclosureDocument } from "#/components/pages/legal/legal-disclosure-document";
 import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
@@ -24,14 +21,10 @@ import type { PagePath } from "#/constants/pages";
 import {
 	CONTACT_PAGE,
 	INDEXED_PAGES,
-	LEGAL_DISCLOSURE_PATH,
 	NAVIGATION_LINKS,
 } from "#/constants/pages";
 import { ADSENSE_PUBLISHER_ID, SITE_DOMAIN, SITE_URL } from "#/constants/site";
-import {
-	TURNSTILE_ACTION_CONTACT,
-	TURNSTILE_ACTION_LEGAL_DISCLOSURE,
-} from "#/constants/turnstile";
+import { TURNSTILE_ACTION_CONTACT } from "#/constants/turnstile";
 import { validateTurnstileWithRetry } from "#/lib/turnstile";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
@@ -67,7 +60,6 @@ const pageRoutes: Record<PagePath, FC> = {
 	"/about": About,
 	"/terms": Terms,
 	"/privacy": Privacy,
-	"/legal": Legal,
 	"/contact": Contact,
 	"/contact/success": ContactSuccess,
 };
@@ -89,48 +81,6 @@ for (const path of Object.keys(pageRoutes) as PagePath[]) {
 }
 
 app.notFound((c) => c.html(<NotFound />, 404));
-
-/**
- * 特商法で省略した事項を含む全文を、電磁的記録として提供する。
- *
- * GET を実装していないのは意図的。クローラーが到達できる経路を作らないため、
- * Turnstile 検証を通した POST でのみ生成する。
- */
-app.post(LEGAL_DISCLOSURE_PATH, async (c) => {
-	const form = await c.req.formData();
-	const verified = await validateTurnstileWithRetry({
-		secretKey: c.env.TURNSTILE_SECRET_KEY,
-		token: String(form.get("cf-turnstile-response") ?? ""),
-		remoteIp: c.req.header("CF-Connecting-IP"),
-		expectedAction: TURNSTILE_ACTION_LEGAL_DISCLOSURE,
-		expectedHostname: SITE_DOMAIN,
-	});
-
-	if (!verified) {
-		return c.html(<DisclosureError />, 400);
-	}
-
-	const providedAt = new Date().toLocaleDateString("ja-JP", {
-		timeZone: "Asia/Tokyo",
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	});
-
-	return c.html(
-		<LegalDisclosureDocument
-			phoneNumber={c.env.LEGAL_PHONE_NUMBER}
-			providedAt={providedAt}
-			representativeName={c.env.LEGAL_REPRESENTATIVE_NAME}
-		/>,
-		200,
-		{
-			"Content-Disposition": 'attachment; filename="legal.html"',
-			// 開示した内容をプロキシやブラウザに残さない。
-			"Cache-Control": "no-store",
-		},
-	);
-});
 
 /**
  * 検証対象は ContactFormValues に正規化済みの値。

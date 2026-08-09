@@ -36,23 +36,6 @@ export const PRIVACY_PAGE = {
 	index: true,
 } as const satisfies PageMeta;
 
-export const LEGAL_PAGE = {
-	path: "/legal",
-	title: "特定商取引法に基づく表記",
-	description:
-		"特定商取引法第11条に基づく、当社の有料コンテンツ販売に関する表示です。",
-	index: true,
-} as const satisfies PageMeta;
-
-export const LEGAL_DISCLOSURE_PATH = "/legal/disclosure";
-
-export const LEGAL_DISCLOSURE_ERROR_PAGE = {
-	path: LEGAL_DISCLOSURE_PATH,
-	title: "ダウンロードできませんでした",
-	description: LEGAL_PAGE.description,
-	index: false,
-} as const satisfies PageMeta;
-
 export const CONTACT_PAGE = {
 	path: "/contact",
 	title: "お問い合わせ",
@@ -87,7 +70,6 @@ export const PAGES = [
 	ABOUT_PAGE,
 	TERMS_PAGE,
 	PRIVACY_PAGE,
-	LEGAL_PAGE,
 	CONTACT_PAGE,
 	CONTACT_SUCCESS_PAGE,
 ] as const;
@@ -100,6 +82,5 @@ export const NAVIGATION_LINKS = [
 	ABOUT_PAGE,
 	TERMS_PAGE,
 	PRIVACY_PAGE,
-	LEGAL_PAGE,
 	CONTACT_PAGE,
 ].map(({ path, title }) => ({ path, title }));
