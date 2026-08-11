@@ -8,22 +8,12 @@ import {
 	type ContactFormErrors,
 	type ContactFormValues,
 } from "#/components/pages/contact/const";
-import { CONTACT_PAGE, NAVIGATION_LINKS } from "#/constants/pages";
-import { SITE_DOMAIN, SITE_URL } from "#/constants/site";
+import { CONTACT_PAGE } from "#/constants/pages";
+import { SITE_DOMAIN } from "#/constants/site";
 import { TURNSTILE_ACTION_CONTACT } from "#/constants/turnstile";
 import { validateTurnstileWithRetry } from "#/lib/turnstile";
 
-const apiRoutes = new Hono<{ Bindings: CloudflareBindings }>();
-
-// 別のworkerから利用規約などのリンクを取得するためのapi
-apiRoutes.get("/api/navigation-links", (c) =>
-	c.json(
-		NAVIGATION_LINKS.map(({ title, path }) => ({
-			title,
-			url: `${SITE_URL}${path}`,
-		})),
-	),
-);
+const contactRoutes = new Hono<{ Bindings: CloudflareBindings }>();
 
 /**
  * 検証対象は ContactFormValues に正規化済みの値。
@@ -67,7 +57,7 @@ function toFieldErrors(error: z.ZodError): ContactFormErrors {
  *
  * TODO: 受信内容を D1 に保存すること。メール送信に失敗すると問い合わせが消える。
  */
-apiRoutes.post(CONTACT_PAGE.path, async (c) => {
+contactRoutes.post(CONTACT_PAGE.path, async (c) => {
 	let values: ContactFormValues = {
 		category: "",
 		name: "",
@@ -149,4 +139,4 @@ apiRoutes.post(CONTACT_PAGE.path, async (c) => {
 	}
 });
 
-export { apiRoutes };
+export { contactRoutes };

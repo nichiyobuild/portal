@@ -4,6 +4,7 @@ import { languageDetector } from "hono/language";
 import { NotFound } from "#/components/pages/not-found";
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "#/constants/i18n";
 import { apiRoutes } from "#/routes/api";
+import { contactRoutes } from "#/routes/contact";
 import { otherRoutes } from "#/routes/other";
 import { pageRoutes } from "#/routes/page";
 
@@ -22,6 +23,7 @@ app.use(
 
 app.route("/", pageRoutes);
 app.route("/", apiRoutes);
+app.route("/", contactRoutes);
 app.route("/", otherRoutes);
 
 app.notFound((c) => c.html(<NotFound />, 404));
