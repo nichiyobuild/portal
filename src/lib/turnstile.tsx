@@ -79,7 +79,7 @@ async function validateTurnstile({
 			return false;
 		}
 
-		// Check token age (warn if older than 4 minutes)
+		// トークンの経過時間を確認する（5分で失効するので4分超で警告）
 		if (result.data.challenge_ts) {
 			const challengeTime = new Date(result.data.challenge_ts).getTime();
 			const now = Date.now();
@@ -113,12 +113,12 @@ export async function validateTurnstileWithRetry({
 		const isValid = await validateTurnstile({ ...params, idempotencyKey });
 		if (isValid) return true;
 
-		// If this is the last attempt, return the error
+		// 最後の試行なら、検証結果をそのまま返す
 		if (attempt === maxRetries) {
 			return isValid;
 		}
 
-		// Wait before retrying (exponential backoff)
+		// 再試行の前に待つ（指数バックオフ）
 		await new Promise((resolve) => setTimeout(resolve, 2 ** attempt * 1000));
 	}
 }

@@ -9,7 +9,8 @@ export const COMPANY_NAME = "Cloudensis合同会社";
 
 /**
  * 代表者氏名はここには置かない。git 履歴に残さないため Worker Secret
- * （REPRESENTATIVE_NAME）から渡し、PageProps 経由で privacy が表示する。
+ * （REPRESENTATIVE_NAME）で持ち、routes/page.tsx の PAGE_RENDERERS が
+ * c.env から読んで Privacy に props で渡す。
  * ローカルは .dev.vars、本番は `wrangler secret put REPRESENTATIVE_NAME`。
  *
  * 個人情報保護法32条1項1号の事業者情報として掲載する方針は 2026-08-09 の
