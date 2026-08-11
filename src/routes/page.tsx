@@ -1,43 +1,32 @@
+import type { Context } from "hono";
 import { Hono } from "hono";
+import type { JSX } from "hono/jsx/jsx-runtime";
 import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
 import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
-import {
-	ABOUT_PAGE,
-	CONTACT_PAGE,
-	CONTACT_SUCCESS_PAGE,
-	HOME_PAGE,
-	PAGE_PATHS,
-	PRIVACY_PAGE,
-	TERMS_PAGE,
-} from "#/constants/pages";
+import { PAGE_PATHS, type PagePath } from "#/constants/pages";
 
 const pageRoutes = new Hono<{ Bindings: CloudflareBindings }>();
 
-pageRoutes.get(`/:lang${HOME_PAGE.path}`, (c) => {
-	return c.html(<Home />);
-});
-pageRoutes.get(`/:lang${ABOUT_PAGE.path}`, (c) => {
-	return c.html(<About />);
-});
-pageRoutes.get(`/:lang${TERMS_PAGE.path}`, (c) => {
-	return c.html(<Terms />);
-});
-pageRoutes.get(`/:lang${PRIVACY_PAGE.path}`, (c) => {
-	return c.html(<Privacy representativeName={c.env.REPRESENTATIVE_NAME} />);
-});
-pageRoutes.get(`/:lang${CONTACT_PAGE.path}`, (c) => {
-	return c.html(<Contact />);
-});
-pageRoutes.get(`/:lang${CONTACT_SUCCESS_PAGE.path}`, (c) => {
-	return c.html(<ContactSuccess />);
-});
+type PageContext = Context<{ Bindings: CloudflareBindings }>;
 
-// lang指定なしの場合はリダイレクト
+const PAGE_RENDERERS: Record<PagePath, (c: PageContext) => JSX.Element> = {
+	"/": () => <Home />,
+	"/about": () => <About />,
+	"/terms": () => <Terms />,
+	"/privacy": (c) => <Privacy representativeName={c.env.REPRESENTATIVE_NAME} />,
+	"/contact": () => <Contact />,
+	"/contact/success": () => <ContactSuccess />,
+};
+
 for (const path of PAGE_PATHS) {
+	const render = PAGE_RENDERERS[path];
+	pageRoutes.get(`/:lang${path}`, (c) => c.html(render(c)));
+
+	// lang指定なしの場合はリダイレクト
 	pageRoutes.get(path, (c) => {
 		const lang = c.get("language");
 		const url = new URL(c.req.url);

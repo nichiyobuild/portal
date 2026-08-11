@@ -62,8 +62,8 @@ export const NOT_FOUND_PAGE = {
  * サイト内の実ページ一覧。ここに追加すると、フッターのリンクと
  * sitemap.xml（INDEXABLE_PATHS）の両方に自動で反映される。
  *
- * ルーティング（index.tsx）は別途、ここに定義したパスへコンポーネントを
- * 登録する必要があり、対応漏れは型エラーになる。
+ * ルーティング（routes/page.tsx の PAGE_RENDERERS）は別途、ここに定義した
+ * パスへコンポーネントを登録する必要があり、対応漏れは型エラーになる。
  */
 export const PAGES = [
 	HOME_PAGE,
