@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { csrf } from "hono/csrf";
 import { languageDetector } from "hono/language";
 import { NotFound } from "#/components/pages/not-found";
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "#/constants/i18n";
 import { apiRoutes } from "#/routes/api";
 import { otherRoutes } from "#/routes/other";
 import { pageRoutes } from "#/routes/page";
@@ -13,8 +14,8 @@ app.use(csrf());
 app.use(
 	languageDetector({
 		order: ["path", "header"],
-		supportedLanguages: ["ja"],
-		fallbackLanguage: "ja",
+		supportedLanguages: [...SUPPORTED_LANGUAGES],
+		fallbackLanguage: DEFAULT_LANGUAGE,
 		lookupFromHeaderKey: "Accept-Language",
 	}),
 );
