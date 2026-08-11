@@ -2,11 +2,15 @@ import { Hono } from "hono";
 import { INDEXED_PAGES } from "#/constants/pages";
 import { ADSENSE_PUBLISHER_ID, SITE_URL } from "#/constants/site";
 
-const otherRoutes = new Hono<{ Bindings: CloudflareBindings }>();
+/**
+ * クローラや広告配信事業者がドメイン直下から取得する、HTML ではないファイル。
+ * いずれも人間が閲覧するページではないため、言語のプレフィックスは付けない。
+ */
+const crawlerRoutes = new Hono<{ Bindings: CloudflareBindings }>();
 
 // noindex のページも Disallow しない。クロールできないと meta robots を
 // 読めず、noindex が伝わらないため。
-otherRoutes.get("/robots.txt", (c) =>
+crawlerRoutes.get("/robots.txt", (c) =>
 	c.text(
 		[
 			"User-agent: *",
@@ -18,7 +22,7 @@ otherRoutes.get("/robots.txt", (c) =>
 	),
 );
 
-otherRoutes.get("/sitemap.xml", (c) => {
+crawlerRoutes.get("/sitemap.xml", (c) => {
 	const urls = INDEXED_PAGES.map(
 		(page) => `\t<url>\n\t\t<loc>${SITE_URL}${page.path}</loc>\n\t</url>`,
 	).join("\n");
@@ -36,7 +40,7 @@ otherRoutes.get("/sitemap.xml", (c) => {
 
 // パブリッシャーIDが未設定のうちは配信しない。
 // 無効なIDを載せた ads.txt は、広告枠の販売者が未承認と解釈される。
-otherRoutes.get("/ads.txt", (c) => {
+crawlerRoutes.get("/ads.txt", (c) => {
 	if (!ADSENSE_PUBLISHER_ID) {
 		return c.text("Not Found", 404);
 	}
@@ -45,4 +49,4 @@ otherRoutes.get("/ads.txt", (c) => {
 	);
 });
 
-export { otherRoutes };
+export { crawlerRoutes };

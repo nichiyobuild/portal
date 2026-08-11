@@ -5,7 +5,7 @@ import { NotFound } from "#/components/pages/not-found";
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "#/constants/i18n";
 import { apiRoutes } from "#/routes/api";
 import { contactRoutes } from "#/routes/contact";
-import { otherRoutes } from "#/routes/other";
+import { crawlerRoutes } from "#/routes/crawler";
 import { pageRoutes } from "#/routes/page";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
@@ -24,7 +24,7 @@ app.use(
 app.route("/", pageRoutes);
 app.route("/", apiRoutes);
 app.route("/", contactRoutes);
-app.route("/", otherRoutes);
+app.route("/", crawlerRoutes);
 
 app.notFound((c) => c.html(<NotFound />, 404));
 
