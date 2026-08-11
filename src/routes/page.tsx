@@ -3,7 +3,6 @@ import { About } from "#/components/pages/about";
 import { Contact } from "#/components/pages/contact";
 import { ContactSuccess } from "#/components/pages/contact/contact-success";
 import { Home } from "#/components/pages/home";
-import { NotFound } from "#/components/pages/not-found";
 import { Privacy } from "#/components/pages/privacy";
 import { Terms } from "#/components/pages/terms";
 import {
@@ -46,7 +45,5 @@ for (const path of PAGE_PATHS) {
 		return c.redirect(url.toString());
 	});
 }
-
-pageRoutes.notFound((c) => c.html(<NotFound />, 404));
 
 export { pageRoutes };
