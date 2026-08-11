@@ -74,6 +74,7 @@ export const PAGES = [
 	CONTACT_SUCCESS_PAGE,
 ] as const;
 
+export const PAGE_PATHS = PAGES.map(({ path }) => path);
 export type PagePath = (typeof PAGES)[number]["path"];
 
 export const INDEXED_PAGES = PAGES.filter((page) => page.index);
