@@ -28,9 +28,6 @@ export const CONTACT_CATEGORY_LABELS: Record<ContactCategory, string> = {
 	other: "その他",
 };
 
-/** 送信完了ページ。成功時のみリダイレクトする（PRG で再送信を防ぐため）。 */
-export const CONTACT_SUCCESS_PATH = "/contact/success";
-
 /** 送信に失敗したときにフォームへ戻す入力値。 */
 export type ContactFormValues = {
 	category: string;

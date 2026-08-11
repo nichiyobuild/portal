@@ -4,11 +4,10 @@ import { Contact } from "#/components/pages/contact";
 import {
 	CONTACT_CATEGORY_LABELS,
 	CONTACT_CATEGORY_VALUES,
-	CONTACT_SUCCESS_PATH,
 	type ContactFormErrors,
 	type ContactFormValues,
 } from "#/components/pages/contact/const";
-import { CONTACT_PAGE } from "#/constants/pages";
+import { CONTACT_PAGE, CONTACT_SUCCESS_PAGE } from "#/constants/pages";
 import { SITE_DOMAIN } from "#/constants/site";
 import { TURNSTILE_ACTION_CONTACT } from "#/constants/turnstile";
 import { validateTurnstileWithRetry } from "#/lib/turnstile";
@@ -124,7 +123,8 @@ contactRoutes.post(CONTACT_PAGE.path, async (c) => {
 			].join("\n"),
 		});
 
-		return c.redirect(CONTACT_SUCCESS_PATH);
+		// 成功時のみリダイレクトする（PRG で再送信を防ぐため）。
+		return c.redirect(CONTACT_SUCCESS_PAGE.path);
 	} catch (error) {
 		console.error({ error, message: "unknown error in post contact" });
 		return c.html(
